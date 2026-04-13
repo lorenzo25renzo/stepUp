@@ -1,0 +1,116 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+// ── Shared toolbar styles used across all pages ──
+ion-toolbar {
+  --background: #ffffff;
+  --border-width: 0;
+  padding: 4px 8px;
+}
+ion-content { --background: #f6f7fb; }
+
+.toolbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+.hdr-badge {
+  position: absolute;
+  top: -5px; right: -8px;
+  background: #ff4757; color: #fff;
+  font-size: 0.58rem; font-weight: 700;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.cart-wrap { position: relative; display: flex; align-items: center; }
+
+.page-wrapper { padding: 8px 20px 100px; }
+
+// ── Section headers ──
+.section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px;
+  h2 { font-size: 1.1rem; font-weight: 700; color: #111; margin: 0; }
+  .see-all { background: none; border: none; font-size: 0.8rem; font-weight: 600; color: #3880ff; cursor: pointer; padding: 0; }
+}
+
+// Add this to src/global.scss — fixes all toolbar icon colors globally
+ion-toolbar {
+  --background: #ffffff;
+  --border-width: 0;
+  --color: #2d1b2e;
+  padding: 4px 8px;
+
+  ion-button {
+    --color: #2d1b2e;
+  }
+
+  ion-icon {
+    color: #2d1b2e !important;
+  }
+}
+
+ion-content { --background: #fff5f9; }
+
+.toolbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d1b2e;
+  text-align: center;
+}
+
+.hdr-badge {
+  position: absolute; top: -5px; right: -8px;
+  background: #e91e8c; color: #fff;
+  font-size: 0.58rem; font-weight: 700;
+  width: 15px; height: 15px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.cart-wrap { position: relative; display: flex; align-items: center; }
+.page-wrapper { padding: 8px 20px 100px; }
+
+.section-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+  h2 { font-size: 1.05rem; font-weight: 700; color: #2d1b2e; margin: 0; }
+  .see-all { background: none; border: none; font-size: 0.8rem; font-weight: 600; color: #e91e8c; cursor: pointer; padding: 0; }
+}

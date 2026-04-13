@@ -1,0 +1,122 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="detail-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/products'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="shop.toggleWishlist(product.id)">
+        <ion-icon slot="icon-only"
+          [name]="shop.isWishlisted(product.id) ? 'heart' : 'heart-outline'"
+          [style.color]="shop.isWishlisted(product.id) ? '#e91e8c' : '#2d1b2e'">
+        </ion-icon>
+      </ion-button>
+      <ion-button (click)="router.navigate(['/cart'])">
+        <div class="cart-wrap">
+          <ion-icon name="cart-outline"></ion-icon>
+          @if (shop.cartCount() > 0) {
+            <span class="hdr-badge">{{ shop.cartCount() }}</span>
+          }
+        </div>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="detail-wrapper">
+
+    <!-- Image Gallery -->
+    <div class="gallery">
+      <!-- 📸 MAIN IMAGE: comes from product.images[selectedImg] — set in shop.service.ts -->
+      <img class="main-img" [src]="product.images[selectedImg]" [alt]="product.title" />
+      @if (!product.inStock) {
+        <div class="oos-ribbon">Out of Stock</div>
+      }
+      <div class="thumb-row">
+        @for (img of product.images; track $index) {
+          <!-- 📸 THUMBNAILS: also from product.images array in shop.service.ts -->
+          <img class="thumb"
+               [class.active]="selectedImg === $index"
+               [src]="img"
+               (click)="selectedImg = $index" />
+        }
+      </div>
+    </div>
+
+    <!-- Info Sheet -->
+    <div class="info-sheet">
+      <span class="d-type">{{ product.type }}</span>
+      <h1 class="d-title">{{ product.title }}</h1>
+
+      <div class="d-rating">
+        @for (s of [1,2,3,4,5]; track s) {
+          <ion-icon name="star"
+            [style.color]="s <= product.rating ? '#f7b731' : '#eee'">
+          </ion-icon>
+        }
+        <span class="d-reviews">{{ product.rating }} · {{ product.reviews }} reviews</span>
+      </div>
+
+      <div class="d-price-row">
+        <span class="d-price">${{ product.price }}</span>
+        @if (product.oldPrice) {
+          <span class="d-old">${{ product.oldPrice }}</span>
+        }
+        @if (product.discount) {
+          <span class="d-disc">{{ product.discount }}</span>
+        }
+      </div>
+
+      <p class="d-desc">{{ product.description }}</p>
+
+      <!-- Sizes -->
+      <h3 class="opt-label">Select Size</h3>
+      <div class="size-row">
+        @for (size of product.sizes; track size) {
+          <button class="size-btn"
+                  [class.active]="selectedSize === size"
+                  (click)="selectedSize = size">
+            {{ size }}
+          </button>
+        }
+      </div>
+
+      <!-- Colors -->
+      <h3 class="opt-label">Select Color</h3>
+      <div class="color-row">
+        @for (color of product.colors; track color) {
+          <button class="color-dot"
+                  [style.background]="color"
+                  [class.active]="selectedColor === color"
+                  (click)="selectedColor = color">
+          </button>
+        }
+      </div>
+
+      <!-- Stock warning -->
+      @if (!product.inStock) {
+        <div class="oos-warning">⚠️ This item is currently out of stock</div>
+      }
+
+      <!-- CTA Buttons -->
+      <div class="cta-row">
+        <button class="btn-cart"
+                [disabled]="!product.inStock"
+                (click)="addToCart()">
+          <ion-icon name="cart-outline"></ion-icon>
+          {{ added ? '✓ Added!' : 'Add to Cart' }}
+        </button>
+
+        <!-- BUY NOW — navigates to checkout with this single item -->
+        <button class="btn-buy"
+                [disabled]="!product.inStock"
+                (click)="buyNow()">
+          Buy Now
+        </button>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

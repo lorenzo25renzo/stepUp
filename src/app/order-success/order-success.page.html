@@ -1,0 +1,63 @@
+<ion-content [fullscreen]="true">
+  <div class="success-wrapper">
+
+    <div class="confetti-area">🎀💗✨💕🌸</div>
+
+    <div class="success-icon">
+      <div class="icon-ring">
+        <span>✓</span>
+      </div>
+    </div>
+
+    <h1>Order Placed! 🎉</h1>
+    <p class="sub">Thank you for shopping with us, gorgeous!</p>
+
+    @if (order) {
+      <div class="order-card">
+        <div class="oc-row">
+          <span class="oc-label">Order ID</span>
+          <span class="oc-val">{{ order.id }}</span>
+        </div>
+        <div class="oc-row">
+          <span class="oc-label">Date</span>
+          <span class="oc-val">{{ order.date | date:'mediumDate' }}</span>
+        </div>
+        <div class="oc-row">
+          <span class="oc-label">Payment</span>
+          <span class="oc-val">{{ order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'gcash' ? 'GCash' : 'Card' }}</span>
+        </div>
+        <div class="oc-row">
+          <span class="oc-label">Status</span>
+          <span class="oc-status">{{ order.status }}</span>
+        </div>
+        <div class="oc-row total">
+          <span class="oc-label">Total Paid</span>
+          <span class="oc-total">${{ order.total.toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <div class="items-preview">
+        @for (item of order.items; track $index) {
+          <div class="preview-item">
+            <!-- 📸 Order confirmation thumbnail — from product.img in shop.service.ts -->
+            <img [src]="item.product.img" [alt]="item.product.title" />
+            <div>
+              <p class="pi-name">{{ item.product.title }}</p>
+              <span class="pi-meta">Qty {{ item.quantity }} · Size {{ item.size }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="action-btns">
+      <button class="btn-home" (click)="router.navigate(['/home'])">
+        Continue Shopping 🛍️
+      </button>
+      <button class="btn-profile" (click)="router.navigate(['/profile'])">
+        View Profile
+      </button>
+    </div>
+
+  </div>
+</ion-content>

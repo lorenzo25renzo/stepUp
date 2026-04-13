@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/home'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="toolbar-title">My Cart 🛍️</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+
+    @if (shop.cart().length === 0) {
+      <div class="empty-cart">
+        <div class="empty-icon">🛍️</div>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything yet.</p>
+        <button class="shop-btn" (click)="router.navigate(['/products'])">Start Shopping</button>
+      </div>
+    } @else {
+      <div class="cart-list">
+        @for (item of shop.cart(); track $index) {
+          <div class="cart-card">
+            <!-- 📸 CART ITEM IMAGE: comes from product.img in shop.service.ts -->
+            <img [src]="item.product.img" [alt]="item.product.title" class="cart-img" />
+            <div class="cart-info">
+              <span class="c-type">{{ item.product.type }}</span>
+              <p class="c-name">{{ item.product.title }}</p>
+              <span class="c-meta">
+                Size: {{ item.size }} ·
+                <span class="c-dot" [style.background]="item.color"></span>
+              </span>
+              <span class="c-price">${{ (item.product.price * item.quantity).toFixed(2) }}</span>
+            </div>
+            <div class="cart-actions">
+              <button class="trash-btn" (click)="shop.removeFromCart($index)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+              <div class="qty-ctrl">
+                <button (click)="shop.updateQuantity($index, -1)">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </button>
+                <span>{{ item.quantity }}</span>
+                <button (click)="shop.updateQuantity($index, 1)">
+                  <ion-icon name="add-outline"></ion-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-row"><span>Subtotal</span><span>${{ shop.cartTotal().toFixed(2) }}</span></div>
+        <div class="summary-row"><span>Shipping</span><span class="free">FREE 🎀</span></div>
+        <div class="summary-row total"><span>Total</span><span>${{ shop.cartTotal().toFixed(2) }}</span></div>
+        <button class="checkout-btn" (click)="router.navigate(['/checkout'])">
+  <ion-icon name="bag-check-outline"></ion-icon>
+  Proceed to Checkout
+</button>
+      </div>
+    }
+
+  </div>
+</ion-content>

@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/home'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="toolbar-title">Shop</div>
+    <ion-buttons slot="end">
+      <ion-button (click)="router.navigate(['/cart'])">
+        <div class="cart-wrap">
+          <ion-icon name="bag-outline"></ion-icon>
+          @if (shop.cartCount() > 0) {
+            <span class="hdr-badge">{{ shop.cartCount() }}</span>
+          }
+        </div>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+
+    <div class="search-row">
+      <div class="search-wrapper">
+        <ion-icon name="search-outline" class="s-icon"></ion-icon>
+        <input [(ngModel)]="searchQuery" placeholder="Search shoes..." class="s-input" />
+      </div>
+      <select [(ngModel)]="sortBy" class="sort-select">
+        <option value="default">Sort</option>
+        <option value="price-asc">Price ↑</option>
+        <option value="price-desc">Price ↓</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </div>
+
+    <div class="cat-row">
+      @for (cat of categories; track cat) {
+        <button class="cat-chip" [class.active]="activeCategory === cat"
+                (click)="activeCategory = cat">{{ cat }}</button>
+      }
+    </div>
+
+    <p class="result-count">{{ filtered.length }} products found</p>
+
+    <div class="grid">
+      @for (item of filtered; track item.id) {
+        <div class="grid-card" (click)="goToDetail(item.id)">
+          <div class="grid-img-wrap">
+            <!-- 📸 PRODUCT IMAGE: set in shop.service.ts → products[n].img -->
+            <img [src]="item.img" [alt]="item.title" />
+            @if (item.badge) { <span class="grid-badge">{{ item.badge }}</span> }
+            @if (!item.inStock) { <div class="out-overlay">Out of Stock</div> }
+            <button class="grid-wish" (click)="toggleWish($event, item.id)">
+              <ion-icon [name]="shop.isWishlisted(item.id) ? 'heart' : 'heart-outline'"
+                        [style.color]="shop.isWishlisted(item.id) ? '#ff4757' : '#aaa'"></ion-icon>
+            </button>
+          </div>
+          <div class="grid-info">
+            <span class="g-type">{{ item.type }}</span>
+            <p class="g-name">{{ item.title }}</p>
+            <div class="g-rating">
+              <ion-icon name="star"></ion-icon>
+              <span>{{ item.rating }} ({{ item.reviews }})</span>
+            </div>
+            <div class="g-footer">
+              <span class="g-price">${{ item.price }}</span>
+              <button class="g-add" [disabled]="!item.inStock"
+                (click)="shop.addToCart(item, item.sizes[0], item.colors[0]); $event.stopPropagation()">
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+</ion-content>
