@@ -1,0 +1,127 @@
+<ion-content [fullscreen]="true">
+  <div class="auth-wrapper">
+
+    <div class="top-blob"></div>
+    <div class="top-blob-2"></div>
+    <div class="bottom-blob"></div>
+
+    <div class="logo-area">
+      <img src="assets/logo.png" alt="StepUp logo" class="logo-img" />
+      <p class="logo-brand">STEPUP</p>
+    </div>
+
+    <div class="auth-card">
+      <h1 class="auth-title">Get Started</h1>
+      <p class="auth-sub">Create your account to continue 💕</p>
+
+      @if (errorMsg) {
+        <div class="error-box">{{ errorMsg }}</div>
+      }
+
+      <div class="field-group">
+        <label>Full Name</label>
+        <div class="input-wrap">
+          <input
+            [(ngModel)]="fullName"
+            type="text"
+            placeholder="Enter your full name"
+            [class.has-value]="fullName" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Email</label>
+        <div class="input-wrap">
+          <input
+            [(ngModel)]="email"
+            type="email"
+            placeholder="Enter your email"
+            [class.has-value]="email" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Phone Number</label>
+        <div class="input-wrap">
+          <input
+            [(ngModel)]="phone"
+            type="tel"
+            placeholder="Enter your phone number"
+            [class.has-value]="phone" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Password</label>
+        <div class="input-wrap with-icon">
+          <input
+            [(ngModel)]="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Create a password"
+            [class.has-value]="password" />
+          <button class="eye-btn" (click)="togglePassword()">
+            <ion-icon [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Confirm Password</label>
+        <div class="input-wrap with-icon">
+          <input
+            [(ngModel)]="confirmPassword"
+            [type]="showConfirm ? 'text' : 'password'"
+            placeholder="Confirm your password"
+            [class.has-value]="confirmPassword" />
+          <button class="eye-btn" (click)="toggleConfirm()">
+            <ion-icon [name]="showConfirm ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      @if (password.length > 0) {
+        <div class="strength-row">
+          <div class="strength-bar"
+               [class.weak]="password.length < 6"
+               [class.medium]="password.length >= 6 && password.length < 10"
+               [class.strong]="password.length >= 10">
+          </div>
+          <span class="strength-label"
+                [class.weak-txt]="password.length < 6"
+                [class.medium-txt]="password.length >= 6 && password.length < 10"
+                [class.strong-txt]="password.length >= 10">
+            {{ password.length < 6 ? 'Weak' : password.length < 10 ? 'Medium' : 'Strong' }}
+          </span>
+        </div>
+      }
+
+      <div class="terms-row">
+        <label class="checkbox-wrap">
+          <input type="checkbox" [(ngModel)]="agreeTerms" />
+          <span class="checkmark"></span>
+          <span class="check-label">
+            I agree to the
+            <span class="terms-link">Terms &amp; Conditions</span>
+            and
+            <span class="terms-link">Privacy Policy</span>
+          </span>
+        </label>
+      </div>
+
+      <button class="primary-btn" (click)="register()" [class.loading]="isLoading">
+        @if (isLoading) {
+          <span class="spinner"></span>
+        } @else {
+          Create Account ✨
+        }
+      </button>
+
+      <p class="switch-text">
+        Already have an account?
+        <button class="link-btn" (click)="goToLogin()">Sign In</button>
+      </p>
+
+    </div>
+
+  </div>
+</ion-content>

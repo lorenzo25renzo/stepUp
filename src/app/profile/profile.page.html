@@ -7,25 +7,36 @@
 <ion-content [fullscreen]="true">
   <div class="page-wrapper">
 
-    <!-- Profile Hero -->
     <div class="profile-hero">
       <div class="avatar-wrap">
-        <!-- 📸 PROFILE PHOTO: replace the initials div with <img src="assets/img/avatar.png"> -->
-        <div class="avatar">JD</div>
+        <!-- Shows initials from the logged in account -->
+        <div class="avatar">{{ initials }}</div>
         <div class="avatar-edit">✏️</div>
       </div>
-      <h2 class="p-name">Precious Nita Lipon</h2>
-      <p class="p-email">nita@email.com</p>
+
+      <!-- Shows the name from the registered / social login account -->
+      <h2 class="p-name">{{ auth.currentUser()?.fullName ?? 'Guest' }}</h2>
+      <p class="p-email">{{ auth.currentUser()?.email ?? '' }}</p>
+      <p class="p-phone">{{ auth.currentUser()?.phone ?? '' }}</p>
+
       <div class="stats-row">
-        <div class="stat"><span class="s-val">{{ shop.cart().length }}</span><span class="s-lbl">In Cart</span></div>
+        <div class="stat">
+          <span class="s-val">{{ shop.cart().length }}</span>
+          <span class="s-lbl">In Cart</span>
+        </div>
         <div class="stat-div"></div>
-        <div class="stat"><span class="s-val">{{ shop.wishlistCount() }}</span><span class="s-lbl">Wishlist</span></div>
+        <div class="stat">
+          <span class="s-val">{{ shop.wishlistCount() }}</span>
+          <span class="s-lbl">Wishlist</span>
+        </div>
         <div class="stat-div"></div>
-        <div class="stat"><span class="s-val">0</span><span class="s-lbl">Orders</span></div>
+        <div class="stat">
+          <span class="s-val">{{ shop.orders().length }}</span>
+          <span class="s-lbl">Orders</span>
+        </div>
       </div>
     </div>
 
-    <!-- Menu -->
     <div class="menu-list">
       @for (item of menuItems; track item.label) {
         <div class="menu-item">
@@ -41,7 +52,7 @@
       }
     </div>
 
-    <button class="logout-btn">
+    <button class="logout-btn" (click)="logout()">
       <ion-icon name="log-out-outline"></ion-icon>
       Log Out
     </button>

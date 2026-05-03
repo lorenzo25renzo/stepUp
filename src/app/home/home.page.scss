@@ -154,3 +154,27 @@ ion-content { --background: #fff5f9; }
     font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
   }
 }
+
+.app-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 6px;
+}
+
+.app-logo-img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(233, 30, 140, 0.3));
+}
+
+.app-logo-name {
+  font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e91e8c, #c44dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}

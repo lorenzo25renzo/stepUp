@@ -1,0 +1,88 @@
+<ion-content [fullscreen]="true">
+  <div class="auth-wrapper">
+
+    <div class="top-blob"></div>
+    <div class="top-blob-2"></div>
+    <div class="bottom-blob"></div>
+
+    <div class="logo-area">
+      <img src="assets/img/logo.png" alt="StepUp logo" class="logo-img" />
+      <p class="logo-brand">STEPUP</p>
+    </div>
+
+    <div class="auth-card">
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-sub">Sign in to continue shopping 🌸</p>
+
+      @if (errorMsg) {
+        <div class="error-box">{{ errorMsg }}</div>
+      }
+
+      <div class="field-group">
+        <label>Email</label>
+        <div class="input-wrap">
+          <input
+            [(ngModel)]="email"
+            type="email"
+            placeholder="Enter your email"
+            [class.has-value]="email" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Password</label>
+        <div class="input-wrap with-icon">
+          <input
+            [(ngModel)]="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Enter your password"
+            [class.has-value]="password" />
+          <button class="eye-btn" (click)="togglePassword()">
+            <ion-icon [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="remember-row">
+        <label class="checkbox-wrap">
+          <input type="checkbox" [(ngModel)]="rememberMe" />
+          <span class="checkmark"></span>
+          <span class="check-label">Remember me</span>
+        </label>
+        <button class="forgot-btn" (click)="forgotPassword()">Forgot Password?</button>
+      </div>
+
+      <button class="primary-btn" (click)="login()" [class.loading]="isLoading">
+        @if (isLoading) {
+          <span class="spinner"></span>
+        } @else {
+          Sign In
+        }
+      </button>
+
+      <p class="switch-text">
+        Don't have an account?
+        <button class="link-btn" (click)="goToRegister()">Sign Up</button>
+      </p>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">Or continue with</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="social-row">
+        <button class="social-btn" (click)="socialLogin('google')">
+          <ion-icon name="logo-google"></ion-icon>
+          <span>Google</span>
+        </button>
+        <button class="social-btn" (click)="socialLogin('facebook')">
+          <ion-icon name="logo-facebook"></ion-icon>
+          <span>Facebook</span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</ion-content>

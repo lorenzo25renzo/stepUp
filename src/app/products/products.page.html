@@ -27,18 +27,34 @@
         <ion-icon name="search-outline" class="s-icon"></ion-icon>
         <input [(ngModel)]="searchQuery" placeholder="Search shoes..." class="s-input" />
       </div>
-      <select [(ngModel)]="sortBy" class="sort-select">
-        <option value="default">Sort</option>
-        <option value="price-asc">Price ↑</option>
-        <option value="price-desc">Price ↓</option>
-        <option value="rating">Top Rated</option>
-      </select>
+
+      <!-- Custom sort dropdown -->
+      <div class="sort-wrapper" [class.open]="sortOpen">
+        <button class="sort-btn" (click)="sortOpen = !sortOpen">
+          {{ getSortLabel() }}
+          <ion-icon name="chevron-down-outline" [class.rotated]="sortOpen"></ion-icon>
+        </button>
+        @if (sortOpen) {
+          <div class="sort-dropdown">
+            @for (opt of sortOptions; track opt.value) {
+              <button class="sort-option"
+                      [class.active]="sortBy === opt.value"
+                      (click)="setSortBy(opt.value)">
+                {{ opt.label }}
+              </button>
+            }
+          </div>
+        }
+      </div>
     </div>
 
     <div class="cat-row">
       @for (cat of categories; track cat) {
-        <button class="cat-chip" [class.active]="activeCategory === cat"
-                (click)="activeCategory = cat">{{ cat }}</button>
+        <button class="cat-chip"
+                [class.active]="activeCategory === cat"
+                (click)="activeCategory = cat">
+          {{ cat }}
+        </button>
       }
     </div>
 
@@ -48,13 +64,14 @@
       @for (item of filtered; track item.id) {
         <div class="grid-card" (click)="goToDetail(item.id)">
           <div class="grid-img-wrap">
-            <!-- 📸 PRODUCT IMAGE: set in shop.service.ts → products[n].img -->
             <img [src]="item.img" [alt]="item.title" />
             @if (item.badge) { <span class="grid-badge">{{ item.badge }}</span> }
             @if (!item.inStock) { <div class="out-overlay">Out of Stock</div> }
             <button class="grid-wish" (click)="toggleWish($event, item.id)">
-              <ion-icon [name]="shop.isWishlisted(item.id) ? 'heart' : 'heart-outline'"
-                        [style.color]="shop.isWishlisted(item.id) ? '#ff4757' : '#aaa'"></ion-icon>
+              <ion-icon
+                [name]="shop.isWishlisted(item.id) ? 'heart' : 'heart-outline'"
+                [style.color]="shop.isWishlisted(item.id) ? '#e91e8c' : '#aaa'">
+              </ion-icon>
             </button>
           </div>
           <div class="grid-info">
@@ -66,8 +83,9 @@
             </div>
             <div class="g-footer">
               <span class="g-price">${{ item.price }}</span>
-              <button class="g-add" [disabled]="!item.inStock"
-                (click)="shop.addToCart(item, item.sizes[0], item.colors[0]); $event.stopPropagation()">
+              <button class="g-add"
+                      [disabled]="!item.inStock"
+                      (click)="shop.addToCart(item, item.sizes[0], item.colors[0]); $event.stopPropagation()">
                 <ion-icon name="add-outline"></ion-icon>
               </button>
             </div>

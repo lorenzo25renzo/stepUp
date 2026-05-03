@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+  <div class="splash-screen" (click)="onTap()">
+
+    <div class="blob blob-tl"></div>
+    <div class="blob blob-tr"></div>
+    <div class="blob blob-bl"></div>
+    <div class="blob blob-br"></div>
+
+    @if (showParticles) {
+      <div class="particles">
+        <span class="p p1">✦</span>
+        <span class="p p2">✦</span>
+        <span class="p p3">◆</span>
+        <span class="p p4">✦</span>
+        <span class="p p5">◆</span>
+        <span class="p p6">✦</span>
+        <span class="p p7">◆</span>
+        <span class="p p8">✦</span>
+      </div>
+    }
+
+    @if (showRing1) { <div class="ring ring-1"></div> }
+    @if (showRing2) { <div class="ring ring-2"></div> }
+
+    <div class="splash-center">
+
+      <div class="logo-wrap" [class.animate-in]="showLogo">
+        <img src="assets/logo.png" alt="StepUp logo" class="logo-img" />
+        <h1 class="brand-name">StepUp</h1>
+        <p class="brand-sub">WALK IN STYLE</p>
+      </div>
+
+      @if (showTagline) {
+        <div class="tagline-wrap">
+          <p class="tagline">Your dream shoes, one step away 🌸</p>
+        </div>
+      }
+
+    </div>
+
+    @if (phase === 'waiting') {
+      <div class="tap-prompt">
+        <div class="tap-ring"></div>
+        <p class="tap-text">tap anywhere to continue</p>
+      </div>
+    }
+
+    @if (phase === 'animating') {
+      <div class="loading-dots">
+        <span class="dot d1"></span>
+        <span class="dot d2"></span>
+        <span class="dot d3"></span>
+      </div>
+    }
+
+  </div>
+</ion-content>

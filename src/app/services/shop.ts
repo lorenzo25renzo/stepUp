@@ -54,13 +54,12 @@ export class ShopService {
       type: 'Sneakers',
       price: 89.99, oldPrice: 120, discount: '25% OFF',
       rating: 4.5, reviews: 128, badge: 'SALE',
-      img: 'https://placehold.co/300x300/fdf0f7/e91e8c?text=Shoe+1',
+      img: 'assets/img/shoe1.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/e91e8c?text=Shoe+1+Front',
-        'https://placehold.co/600x600/fce8f3/e91e8c?text=Shoe+1+Side',
-        'https://placehold.co/600x600/fbe0ef/e91e8c?text=Shoe+1+Back',
+        'assets/img/shoe1.png',
+        'assets/img/shoe1.png',
+        'assets/img/shoe1.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe1.png', images: ['assets/img/shoe1-a.png', ...]
       description: 'Premium white leather sneakers with cushioned soles. Perfect for everyday wear with a timeless design that pairs with any outfit.',
       sizes: [36, 37, 38, 39, 40, 41], colors: ['#ffffff', '#1a1a1a', '#e91e8c'], inStock: true,
     },
@@ -70,12 +69,11 @@ export class ShopService {
       type: 'Sports',
       price: 149.99,
       rating: 4.8, reviews: 64,
-      img: 'https://placehold.co/300x300/fdf0f7/ff6b9d?text=Shoe+2',
+      img: 'assets/img/shoe2.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/ff6b9d?text=Shoe+2+Front',
-        'https://placehold.co/600x600/fce8f3/ff6b9d?text=Shoe+2+Side',
+        'assets/img/shoe2.png',
+        'assets/img/shoe2.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe2.png', images: ['assets/img/shoe2-a.png', ...]
       description: 'High-performance running shoes engineered for speed and comfort. Responsive foam midsole absorbs impact on every stride.',
       sizes: [37, 38, 39, 40, 41], colors: ['#ff6b9d', '#ffffff', '#c44dff'], inStock: true,
     },
@@ -85,12 +83,11 @@ export class ShopService {
       type: 'Casual',
       price: 129.99, oldPrice: 160, discount: '19% OFF',
       rating: 4.3, reviews: 95, badge: 'NEW',
-      img: 'https://placehold.co/300x300/fdf0f7/c44dff?text=Shoe+3',
+      img: 'assets/img/shoe3.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/c44dff?text=Shoe+3+Front',
-        'https://placehold.co/600x600/fce8f3/c44dff?text=Shoe+3+Side',
+        'assets/img/shoe3.png',
+        'assets/img/shoe3.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe3.png', images: ['assets/img/shoe3-a.png', ...]
       description: 'Bold high-top silhouette for the streets. Reinforced ankle support meets street-ready style in this versatile everyday shoe.',
       sizes: [36, 37, 38, 39, 40], colors: ['#c44dff', '#1a1a1a', '#ffffff'], inStock: true,
     },
@@ -100,11 +97,10 @@ export class ShopService {
       type: 'Casual',
       price: 49.99,
       rating: 4.1, reviews: 210,
-      img: 'https://placehold.co/300x300/fdf0f7/ff9abf?text=Shoe+4',
+      img: 'assets/img/shoe4.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/ff9abf?text=Shoe+4+Front',
+        'assets/img/shoe4.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe4.png', images: ['assets/img/shoe4-a.png']
       description: 'Cloud-soft slides for ultimate comfort. Contoured footbed and grippy outsole for indoor and outdoor use.',
       sizes: [36, 37, 38, 39, 40, 41], colors: ['#ff9abf', '#ffffff', '#1a1a1a'], inStock: true,
     },
@@ -114,12 +110,11 @@ export class ShopService {
       type: 'Sports',
       price: 189.99, oldPrice: 220, discount: '14% OFF',
       rating: 4.7, reviews: 47, badge: 'HOT',
-      img: 'https://placehold.co/300x300/fdf0f7/e91e8c?text=Shoe+5',
+      img: 'assets/img/shoe5.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/e91e8c?text=Shoe+5+Front',
-        'https://placehold.co/600x600/fce8f3/e91e8c?text=Shoe+5+Side',
+        'assets/img/shoe5.png',
+        'assets/img/shoe5.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe5.png', images: ['assets/img/shoe5-a.png', ...]
       description: 'Waterproof trail runner built for rugged terrain. Gore-Tex lining keeps feet dry while aggressive lugs grip every surface.',
       sizes: [37, 38, 39, 40, 41], colors: ['#e91e8c', '#1a1a1a', '#ff6b9d'], inStock: false,
     },
@@ -129,13 +124,12 @@ export class ShopService {
       type: 'Sneakers',
       price: 99.99,
       rating: 4.4, reviews: 183,
-      img: 'https://placehold.co/300x300/fdf0f7/ff6b9d?text=Shoe+6',
+      img: 'assets/img/shoe6.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/ff6b9d?text=Shoe+6+Front',
-        'https://placehold.co/600x600/fce8f3/ff6b9d?text=Shoe+6+Side',
-        'https://placehold.co/600x600/fbe0ef/ff6b9d?text=Shoe+6+Back',
+        'assets/img/shoe6.png',
+        'assets/img/shoe6.png',
+        'assets/img/shoe6.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe6.png', images: ['assets/img/shoe6-a.png', ...]
       description: 'Heritage-inspired court shoe with a modern twist. Clean lines and premium suede upper deliver timeless style.',
       sizes: [36, 37, 38, 39, 40, 41], colors: ['#ff6b9d', '#ffffff', '#f7b731'], inStock: true,
     },
@@ -145,12 +139,11 @@ export class ShopService {
       type: 'Casual',
       price: 79.99, oldPrice: 100, discount: '20% OFF',
       rating: 4.6, reviews: 312, badge: 'SALE',
-      img: 'https://placehold.co/300x300/fdf0f7/c44dff?text=Shoe+7',
+      img: 'assets/img/shoe7.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/c44dff?text=Shoe+7+Front',
-        'https://placehold.co/600x600/fce8f3/c44dff?text=Shoe+7+Side',
+        'assets/img/shoe7.png',
+        'assets/img/shoe7.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe7.png', images: ['assets/img/shoe7-a.png', ...]
       description: 'Chunky platform sole meets delicate floral detailing. The perfect blend of bold and feminine for any occasion.',
       sizes: [35, 36, 37, 38, 39, 40], colors: ['#c44dff', '#ffb3d1', '#ffffff'], inStock: true,
     },
@@ -160,12 +153,11 @@ export class ShopService {
       type: 'Sports',
       price: 119.99,
       rating: 4.5, reviews: 88,
-      img: 'https://placehold.co/300x300/fdf0f7/e91e8c?text=Shoe+8',
+      img: 'assets/img/shoe8.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/e91e8c?text=Shoe+8+Front',
-        'https://placehold.co/600x600/fce8f3/e91e8c?text=Shoe+8+Side',
+        'assets/img/shoe8.png',
+        'assets/img/shoe8.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe8.png', images: ['assets/img/shoe8-a.png', ...]
       description: 'Lightweight mesh upper with rose gold metallic accents. Built for performance, designed to turn heads.',
       sizes: [36, 37, 38, 39, 40], colors: ['#e8b4a0', '#ffffff', '#e91e8c'], inStock: true,
     },
@@ -175,11 +167,10 @@ export class ShopService {
       type: 'Casual',
       price: 64.99,
       rating: 4.2, reviews: 156, badge: 'NEW',
-      img: 'https://placehold.co/300x300/fdf0f7/ff9abf?text=Shoe+9',
+      img: 'assets/img/shoe9.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/ff9abf?text=Shoe+9+Front',
+        'assets/img/shoe9.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe9.png', images: ['assets/img/shoe9-a.png']
       description: 'Effortlessly chic slip-ons in soft pastel hues. Elastic goring for easy on-off, memory foam insole for all-day comfort.',
       sizes: [35, 36, 37, 38, 39, 40, 41], colors: ['#ffb3d1', '#b3d9ff', '#b3ffcc'], inStock: true,
     },
@@ -189,12 +180,11 @@ export class ShopService {
       type: 'Sneakers',
       price: 109.99, oldPrice: 139.99, discount: '21% OFF',
       rating: 4.3, reviews: 74,
-      img: 'https://placehold.co/300x300/fdf0f7/c44dff?text=Shoe+10',
+      img: 'assets/img/shoe10.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/c44dff?text=Shoe+10+Front',
-        'https://placehold.co/600x600/fce8f3/c44dff?text=Shoe+10+Side',
+        'assets/img/shoe10.png',
+        'assets/img/shoe10.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe10.png', images: ['assets/img/shoe10-a.png', ...]
       description: 'Hidden wedge heel with a velvet upper for a luxe elevated look. Style meets comfort in every step.',
       sizes: [35, 36, 37, 38, 39], colors: ['#c44dff', '#1a1a1a', '#e8b4a0'], inStock: true,
     },
@@ -204,13 +194,12 @@ export class ShopService {
       type: 'Sneakers',
       price: 84.99,
       rating: 4.7, reviews: 201, badge: 'HOT',
-      img: 'https://placehold.co/300x300/fdf0f7/ff6b9d?text=Shoe+11',
+      img: 'assets/img/shoe11.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/ff6b9d?text=Shoe+11+Front',
-        'https://placehold.co/600x600/fce8f3/ff6b9d?text=Shoe+11+Side',
-        'https://placehold.co/600x600/fbe0ef/ff6b9d?text=Shoe+11+Back',
+        'assets/img/shoe11.png',
+        'assets/img/shoe11.png',
+        'assets/img/shoe11.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe11.png', images: ['assets/img/shoe11-a.png', ...]
       description: 'Soft pink canvas with embroidered cherry blossom motifs. Lightweight and breathable for everyday wear.',
       sizes: [35, 36, 37, 38, 39, 40], colors: ['#ff6b9d', '#ffffff', '#ffb3d1'], inStock: true,
     },
@@ -220,12 +209,11 @@ export class ShopService {
       type: 'Sports',
       price: 134.99, oldPrice: 160, discount: '16% OFF',
       rating: 4.9, reviews: 39,
-      img: 'https://placehold.co/300x300/fdf0f7/c44dff?text=Shoe+12',
+      img: 'assets/img/shoe12.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/c44dff?text=Shoe+12+Front',
-        'https://placehold.co/600x600/fce8f3/c44dff?text=Shoe+12+Side',
+        'assets/img/shoe12.png',
+        'assets/img/shoe12.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe12.png', images: ['assets/img/shoe12-a.png', ...]
       description: 'Ultra-cushioned cloud foam midsole in dreamy lilac. Maximum energy return for long-distance comfort.',
       sizes: [36, 37, 38, 39, 40, 41], colors: ['#c44dff', '#e8b4ff', '#ffffff'], inStock: true,
     },
@@ -235,12 +223,11 @@ export class ShopService {
       type: 'Casual',
       price: 94.99,
       rating: 4.0, reviews: 128, badge: 'NEW',
-      img: 'https://placehold.co/300x300/fdf0f7/e91e8c?text=Shoe+13',
+      img: 'assets/img/shoe13.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/e91e8c?text=Shoe+13+Front',
-        'https://placehold.co/600x600/fce8f3/e91e8c?text=Shoe+13+Side',
+        'assets/img/shoe13.png',
+        'assets/img/shoe13.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe13.png', images: ['assets/img/shoe13-a.png', ...]
       description: 'Statement glitter upper with a subtle pump heel. Goes from day to night without missing a beat.',
       sizes: [35, 36, 37, 38, 39, 40], colors: ['#e91e8c', '#f7c948', '#c44dff'], inStock: true,
     },
@@ -250,12 +237,11 @@ export class ShopService {
       type: 'Sports',
       price: 159.99, oldPrice: 195, discount: '18% OFF',
       rating: 4.6, reviews: 55, badge: 'SALE',
-      img: 'https://placehold.co/300x300/fdf0f7/ff9abf?text=Shoe+14',
+      img: 'assets/img/shoe14.png',
       images: [
-        'https://placehold.co/600x600/fdf0f7/ff9abf?text=Shoe+14+Front',
-        'https://placehold.co/600x600/fce8f3/ff9abf?text=Shoe+14+Side',
+        'assets/img/shoe14.png',
+        'assets/img/shoe14.png',
       ],
-      // 📸 Replace with: img: 'assets/img/shoe14.png', images: ['assets/img/shoe14-a.png', ...]
       description: 'Trail-ready hiker with a feminine sakura pink colorway. Waterproof upper and aggressive outsole for any adventure.',
       sizes: [36, 37, 38, 39, 40, 41], colors: ['#ff9abf', '#1a1a1a', '#e8b4a0'], inStock: true,
     },
@@ -329,7 +315,6 @@ export class ShopService {
   orders = computed(() => this._orders());
 
   // ─── Checkout Helpers ────────────────────────────────────
-  // Returns buy-now item OR full cart depending on flow
   getCheckoutItems(): CartItem[] {
     const buyNow = this._buyNowItem();
     if (buyNow) {
@@ -360,7 +345,6 @@ export class ShopService {
     };
     this._orders.update(o => [order, ...o]);
 
-    // Clear cart only when coming from cart flow, not buy-now
     if (!this._buyNowItem()) {
       this._cart.set([]);
     }

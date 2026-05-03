@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonContent, IonHeader, IonToolbar, IonIcon } from '@ionic/angular/standalone';
+import {
+  IonContent, IonHeader, IonToolbar, IonIcon,
+  AlertController
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { heartOutline, bagOutline, locationOutline, cardOutline,
-         settingsOutline, helpCircleOutline, logOutOutline, chevronForwardOutline, star } from 'ionicons/icons';
+         settingsOutline, helpCircleOutline, logOutOutline,
+         chevronForwardOutline, star } from 'ionicons/icons';
 import { ShopService } from '../services/shop';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,16 +21,53 @@ import { ShopService } from '../services/shop';
 })
 export class ProfilePage {
   menuItems = [
-    { icon: 'heart-outline',         label: 'My Wishlist',      sub: 'Saved items'        },
-    { icon: 'bag-outline',           label: 'My Orders',        sub: 'Track your orders'  },
-    { icon: 'location-outline',      label: 'Addresses',        sub: 'Saved locations'    },
-    { icon: 'card-outline',          label: 'Payment Methods',  sub: 'Cards & wallets'    },
-    { icon: 'settings-outline',      label: 'Settings',         sub: 'App preferences'    },
-    { icon: 'help-circle-outline',   label: 'Help & Support',   sub: 'FAQs and contact'   },
+    { icon: 'heart-outline',       label: 'My Wishlist',     sub: 'Saved items'       },
+    { icon: 'bag-outline',         label: 'My Orders',       sub: 'Track your orders' },
+    { icon: 'location-outline',    label: 'Addresses',       sub: 'Saved locations'   },
+    { icon: 'card-outline',        label: 'Payment Methods', sub: 'Cards & wallets'   },
+    { icon: 'settings-outline',    label: 'Settings',        sub: 'App preferences'   },
+    { icon: 'help-circle-outline', label: 'Help & Support',  sub: 'FAQs and contact'  },
   ];
 
-  constructor(public shop: ShopService, public router: Router) {
+  constructor(
+    public shop: ShopService,
+    public auth: AuthService,
+    public router: Router,
+    private alertCtrl: AlertController
+  ) {
     addIcons({ heartOutline, bagOutline, locationOutline, cardOutline,
-               settingsOutline, helpCircleOutline, logOutOutline, chevronForwardOutline, star });
+               settingsOutline, helpCircleOutline, logOutOutline,
+               chevronForwardOutline, star });
+  }
+
+  // Gets initials from the logged in user's name
+  get initials(): string {
+    const name = this.auth.currentUser()?.fullName ?? '';
+    return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  }
+
+  async logout() {
+    const alert = await this.alertCtrl.create({
+      header: 'Log Out',
+      message: 'Are you sure you want to log out?',
+      cssClass: 'pink-alert',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alert-cancel-btn',
+        },
+        {
+          text: 'Log Out',
+          cssClass: 'alert-logout-btn',
+          handler: () => {
+            this.auth.logout();
+            this.router.navigate(['/login'], { replaceUrl: true });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
