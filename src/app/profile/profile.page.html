@@ -9,9 +9,12 @@
 
     <div class="profile-hero">
       <div class="avatar-wrap">
-        <div class="avatar">{{ initials }}</div>
-        <div class="avatar-edit">✏️</div>
-      </div>
+  <img
+    class="avatar-img"
+    [src]="auth.getAvatarUrl(auth.currentUser()?.fullName ?? 'Guest')"
+    [alt]="auth.currentUser()?.fullName" />
+  <div class="avatar-edit">✏️</div>
+</div>
       <h2 class="p-name">{{ auth.currentUser()?.fullName ?? 'Guest' }}</h2>
       <p class="p-email">{{ auth.currentUser()?.email ?? '' }}</p>
       <p class="p-phone">{{ auth.currentUser()?.phone ?? '' }}</p>

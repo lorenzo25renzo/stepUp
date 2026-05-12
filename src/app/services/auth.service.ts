@@ -94,4 +94,9 @@ export class AuthService {
   logout(): void {
     this._currentUser.set(null);
   }
+
+  getAvatarUrl(name: string): string {
+  const seed = name.replace(/\s+/g, '');
+  return `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}&backgroundColor=fde8f3`;
+}
 }

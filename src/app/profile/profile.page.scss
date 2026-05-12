@@ -6,7 +6,14 @@ ion-content { --background: #fff5f9; }
   background: linear-gradient(135deg, #e91e8c, #c44dff);
   border-radius: 0 0 30px 30px; padding: 20px 20px 28px; text-align: center; margin: 0 -20px 24px;
   .avatar-wrap { position: relative; display: inline-block; margin-bottom: 12px;
-    .avatar { width: 76px; height: 76px; border-radius: 50%; background: rgba(255,255,255,0.25); color: #fff; font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 3px solid rgba(255,255,255,0.45); margin: 0 auto; }
+   .avatar-img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+}
     .avatar-edit { position: absolute; bottom: 0; right: 0; font-size: 0.75rem; background: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
   }
   .p-name { font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0 0 4px; }
