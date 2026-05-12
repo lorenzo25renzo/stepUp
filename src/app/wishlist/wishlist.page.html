@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/profile'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="toolbar-title">My Wishlist 🤍</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+
+    @if (wishlistedProducts.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">🤍</div>
+        <h2>No saved items yet</h2>
+        <p>Tap the heart icon on any product to save it here.</p>
+        <button class="browse-btn" (click)="router.navigate(['/products'])">
+          Browse Products
+        </button>
+      </div>
+    } @else {
+      <p class="count-text">{{ wishlistedProducts.length }} saved items</p>
+
+      <div class="wish-list">
+        @for (item of wishlistedProducts; track item.id) {
+          <div class="wish-card" (click)="goToDetail(item.id)">
+            <div class="wish-img-wrap">
+              <img [src]="item.img" [alt]="item.title" />
+            </div>
+            <div class="wish-info">
+              <span class="w-type">{{ item.type }}</span>
+              <p class="w-name">{{ item.title }}</p>
+              <div class="w-rating">
+                <ion-icon name="star"></ion-icon>
+                <span>{{ item.rating }} ({{ item.reviews }})</span>
+              </div>
+              <div class="w-price-row">
+                <span class="w-price">${{ item.price }}</span>
+                @if (item.oldPrice) {
+                  <span class="w-old">${{ item.oldPrice }}</span>
+                }
+              </div>
+            </div>
+            <div class="wish-actions">
+              <button class="w-remove" (click)="removeFromWishlist(item.id); $event.stopPropagation()">
+                <ion-icon name="heart" style="color:#e91e8c"></ion-icon>
+              </button>
+              <button class="w-add" [disabled]="!item.inStock"
+                (click)="addToCart(item); $event.stopPropagation()">
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</ion-content>

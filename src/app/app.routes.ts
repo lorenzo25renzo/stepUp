@@ -41,11 +41,31 @@ export const routes: Routes = [
     loadComponent: () => import('./order-success/order-success.page').then(m => m.OrderSuccessPage)
   },
   {
+    path: 'wishlist',
+    loadComponent: () => import('./wishlist/wishlist.page').then(m => m.WishlistPage)
+  },
+  {
+    path: 'orders',
+    loadComponent: () => import('./orders/orders.page').then(m => m.OrdersPage)
+  },
+  {
+    path: 'addresses',
+    loadComponent: () => import('./addresses/addresses.page').then(m => m.AddressesPage)
+  },
+  {
+    path: 'payment-methods',
+    loadComponent: () => import('./payment-methods/payment-methods.page').then(m => m.PaymentMethodsPage)
+  },
+  {
+    path: 'settings',
+    loadComponent: () => import('./settings/settings.page').then(m => m.SettingsPage)
+  },
+  {
+    path: 'help-support',
+    loadComponent: () => import('./help-support/help-support.page').then(m => m.HelpSupportPage)
+  },
+  {
     path: '**',
     redirectTo: 'splash'
-  },  {
-    path: 'splash',
-    loadComponent: () => import('./splash/splash.page').then( m => m.SplashPage)
   }
-
 ];

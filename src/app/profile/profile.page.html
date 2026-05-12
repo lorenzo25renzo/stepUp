@@ -9,12 +9,9 @@
 
     <div class="profile-hero">
       <div class="avatar-wrap">
-        <!-- Shows initials from the logged in account -->
         <div class="avatar">{{ initials }}</div>
         <div class="avatar-edit">✏️</div>
       </div>
-
-      <!-- Shows the name from the registered / social login account -->
       <h2 class="p-name">{{ auth.currentUser()?.fullName ?? 'Guest' }}</h2>
       <p class="p-email">{{ auth.currentUser()?.email ?? '' }}</p>
       <p class="p-phone">{{ auth.currentUser()?.phone ?? '' }}</p>
@@ -39,7 +36,7 @@
 
     <div class="menu-list">
       @for (item of menuItems; track item.label) {
-        <div class="menu-item">
+        <div class="menu-item" (click)="navigate(item.route)">
           <div class="menu-icon-wrap">
             <ion-icon [name]="item.icon"></ion-icon>
           </div>

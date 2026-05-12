@@ -1,0 +1,84 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/profile'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="toolbar-title">Payment Methods 💳</div>
+    <ion-buttons slot="end">
+      <ion-button (click)="showForm = !showForm">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+
+    @if (showForm) {
+      <div class="form-card">
+        <h3 class="form-title">Add Payment Method</h3>
+
+        <div class="type-row">
+          <button class="type-btn" [class.active]="newType === 'card'" (click)="newType = 'card'">
+            <ion-icon name="card-outline"></ion-icon> Card
+          </button>
+          <button class="type-btn" [class.active]="newType === 'gcash'" (click)="newType = 'gcash'">
+            <ion-icon name="phone-portrait-outline"></ion-icon> GCash
+          </button>
+        </div>
+
+        @if (newType === 'card') {
+          <div class="field-group">
+            <label>Cardholder Name</label>
+            <input [(ngModel)]="cardName" placeholder="Name on card" />
+          </div>
+          <div class="field-group">
+            <label>Card Number</label>
+            <input [(ngModel)]="cardNumber" type="number" placeholder="XXXX XXXX XXXX XXXX" />
+          </div>
+        }
+
+        @if (newType === 'gcash') {
+          <div class="field-group">
+            <label>GCash Number</label>
+            <input [(ngModel)]="gcashNumber" type="tel" placeholder="09XX XXX XXXX" />
+          </div>
+        }
+
+        <div class="form-btns">
+          <button class="btn-cancel" (click)="showForm = false">Cancel</button>
+          <button class="btn-save" (click)="saveMethod()">Save</button>
+        </div>
+      </div>
+    }
+
+    @for (method of methods; track method.id) {
+      <div class="method-card" [class.default]="method.isDefault">
+        <div class="method-icon-wrap">
+          <ion-icon [name]="getIcon(method.type)"></ion-icon>
+        </div>
+        <div class="method-info">
+          <p class="m-label">{{ method.label }}</p>
+          <span class="m-detail">{{ method.detail }}</span>
+          @if (method.isDefault) {
+            <span class="default-badge">Default</span>
+          }
+        </div>
+        <div class="method-actions">
+          @if (!method.isDefault) {
+            <button class="set-default-btn" (click)="setDefault(method.id)">Set Default</button>
+          }
+          @if (method.type !== 'cod') {
+            <button class="del-btn" (click)="deleteMethod(method.id)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+  </div>
+</ion-content>

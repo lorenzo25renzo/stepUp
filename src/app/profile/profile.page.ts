@@ -8,7 +8,7 @@ import {
 import { addIcons } from 'ionicons';
 import { heartOutline, bagOutline, locationOutline, cardOutline,
          settingsOutline, helpCircleOutline, logOutOutline,
-         chevronForwardOutline, star } from 'ionicons/icons';
+         chevronForwardOutline } from 'ionicons/icons';
 import { ShopService } from '../services/shop';
 import { AuthService } from '../services/auth.service';
 
@@ -20,13 +20,14 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, IonContent, IonHeader, IonToolbar, IonIcon]
 })
 export class ProfilePage {
+
   menuItems = [
-    { icon: 'heart-outline',       label: 'My Wishlist',     sub: 'Saved items'       },
-    { icon: 'bag-outline',         label: 'My Orders',       sub: 'Track your orders' },
-    { icon: 'location-outline',    label: 'Addresses',       sub: 'Saved locations'   },
-    { icon: 'card-outline',        label: 'Payment Methods', sub: 'Cards & wallets'   },
-    { icon: 'settings-outline',    label: 'Settings',        sub: 'App preferences'   },
-    { icon: 'help-circle-outline', label: 'Help & Support',  sub: 'FAQs and contact'  },
+    { icon: 'heart-outline',       label: 'My Wishlist',     sub: 'Saved items',         route: '/wishlist'         },
+    { icon: 'bag-outline',         label: 'My Orders',       sub: 'Track your orders',   route: '/orders'           },
+    { icon: 'location-outline',    label: 'Addresses',       sub: 'Saved locations',     route: '/addresses'        },
+    { icon: 'card-outline',        label: 'Payment Methods', sub: 'Cards & wallets',     route: '/payment-methods'  },
+    { icon: 'settings-outline',    label: 'Settings',        sub: 'App preferences',     route: '/settings'         },
+    { icon: 'help-circle-outline', label: 'Help & Support',  sub: 'FAQs and contact',    route: '/help-support'     },
   ];
 
   constructor(
@@ -37,13 +38,16 @@ export class ProfilePage {
   ) {
     addIcons({ heartOutline, bagOutline, locationOutline, cardOutline,
                settingsOutline, helpCircleOutline, logOutOutline,
-               chevronForwardOutline, star });
+               chevronForwardOutline });
   }
 
-  // Gets initials from the logged in user's name
   get initials(): string {
     const name = this.auth.currentUser()?.fullName ?? '';
     return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  }
+
+  navigate(route: string) {
+    this.router.navigate([route]);
   }
 
   async logout() {
@@ -52,11 +56,7 @@ export class ProfilePage {
       message: 'Are you sure you want to log out?',
       cssClass: 'pink-alert',
       buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'alert-cancel-btn',
-        },
+        { text: 'Cancel', role: 'cancel', cssClass: 'alert-cancel-btn' },
         {
           text: 'Log Out',
           cssClass: 'alert-logout-btn',
@@ -67,7 +67,6 @@ export class ProfilePage {
         }
       ]
     });
-
     await alert.present();
   }
 }

@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/profile'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="toolbar-title">Help & Support 💬</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+
+    <div class="help-banner">
+      <h2>How can we help you? 🌸</h2>
+      <p>Find answers to common questions below</p>
+    </div>
+
+    <p class="section-label">Frequently Asked Questions</p>
+
+    @for (faq of faqs; track $index) {
+      <div class="faq-card" [class.open]="faq.open" (click)="toggle($index)">
+        <div class="faq-header">
+          <span class="faq-question">{{ faq.question }}</span>
+          <ion-icon [name]="faq.open ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+        </div>
+        @if (faq.open) {
+          <p class="faq-answer">{{ faq.answer }}</p>
+        }
+      </div>
+    }
+
+    <p class="section-label" style="margin-top: 28px;">Contact Us</p>
+
+    <div class="contact-card">
+      <div class="contact-row">
+        <div class="contact-icon">
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
+        <div>
+          <p class="c-title">Email Support</p>
+          <span class="c-detail">support@stepup.com</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">
+          <ion-icon name="call-outline"></ion-icon>
+        </div>
+        <div>
+          <p class="c-title">Call Us</p>
+          <span class="c-detail">+63 (2) 8XXX-XXXX · Mon–Fri 9AM–6PM</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </div>
+        <div>
+          <p class="c-title">Facebook Page</p>
+          <span class="c-detail">facebook.com/stepupph</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

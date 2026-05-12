@@ -1,0 +1,39 @@
+ion-content { --background: #fff5f9; }
+.page-wrapper { padding: 8px 20px 100px; }
+
+.help-banner {
+  background: linear-gradient(135deg, #e91e8c, #c44dff);
+  border-radius: 20px; padding: 24px 20px; margin-bottom: 24px; text-align: center;
+  h2 { font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0 0 6px; }
+  p { font-size: 0.82rem; color: rgba(255,255,255,0.8); margin: 0; }
+}
+
+.section-label { font-size: 0.72rem; font-weight: 700; color: #d4a0c0; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 12px 4px; }
+
+.faq-card {
+  background: #fff; border-radius: 16px; padding: 16px;
+  border: 1px solid #fde0ef; margin-bottom: 10px; cursor: pointer;
+  transition: border-color 0.2s;
+  &.open { border-color: #e91e8c; }
+
+  .faq-header { display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    .faq-question { font-size: 0.88rem; font-weight: 700; color: #2d1b2e; flex: 1; line-height: 1.4; }
+    ion-icon { font-size: 0.9rem; color: #e91e8c; flex-shrink: 0; }
+  }
+
+  .faq-answer { font-size: 0.82rem; color: #a07090; margin: 12px 0 0; line-height: 1.6; }
+}
+
+.contact-card {
+  background: #fff; border-radius: 20px; padding: 6px 16px;
+  border: 1px solid #fde0ef;
+
+  .contact-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #fde8f3;
+    &:last-child { border-bottom: none; }
+    .contact-icon { width: 40px; height: 40px; border-radius: 12px; background: #fde8f3; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      ion-icon { font-size: 1.1rem; color: #e91e8c; }
+    }
+    .c-title { font-size: 0.88rem; font-weight: 700; color: #2d1b2e; margin: 0 0 3px; }
+    .c-detail { font-size: 0.76rem; color: #a07090; }
+  }
+}

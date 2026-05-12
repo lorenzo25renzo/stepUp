@@ -1,0 +1,96 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/profile'])">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="toolbar-title">Addresses 📍</div>
+    <ion-buttons slot="end">
+      <ion-button (click)="showForm = !showForm">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+
+    @if (showForm) {
+      <div class="form-card">
+        <h3 class="form-title">New Address</h3>
+
+        <div class="field-group">
+          <label>Label (e.g. Home, Work)</label>
+          <input [(ngModel)]="newAddress.label" placeholder="Home" />
+        </div>
+        <div class="field-group">
+          <label>Full Name</label>
+          <input [(ngModel)]="newAddress.fullName" placeholder="Enter full name" />
+        </div>
+        <div class="field-group">
+          <label>Phone</label>
+          <input [(ngModel)]="newAddress.phone" type="tel" placeholder="09XX XXX XXXX" />
+        </div>
+        <div class="field-group">
+          <label>Street Address</label>
+          <input [(ngModel)]="newAddress.address" placeholder="House No., Street, Barangay" />
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>City</label>
+            <input [(ngModel)]="newAddress.city" placeholder="City" />
+          </div>
+          <div class="field-group">
+            <label>ZIP</label>
+            <input [(ngModel)]="newAddress.zip" type="number" placeholder="0000" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Province</label>
+          <input [(ngModel)]="newAddress.province" placeholder="Province" />
+        </div>
+
+        <div class="form-btns">
+          <button class="btn-cancel" (click)="showForm = false">Cancel</button>
+          <button class="btn-save" (click)="saveAddress()">Save Address</button>
+        </div>
+      </div>
+    }
+
+    @if (addresses.length === 0 && !showForm) {
+      <div class="empty-state">
+        <div class="empty-icon">📍</div>
+        <h2>No addresses saved</h2>
+        <p>Add a delivery address to make checkout faster.</p>
+        <button class="browse-btn" (click)="showForm = true">Add Address</button>
+      </div>
+    }
+
+    @for (addr of addresses; track addr.id) {
+      <div class="address-card" [class.default]="addr.isDefault">
+        <div class="addr-header">
+          <div class="addr-label-wrap">
+            <ion-icon name="location-outline"></ion-icon>
+            <span class="addr-label">{{ addr.label }}</span>
+            @if (addr.isDefault) {
+              <span class="default-badge">Default</span>
+            }
+          </div>
+          <div class="addr-actions">
+            @if (!addr.isDefault) {
+              <button class="set-default-btn" (click)="setDefault(addr.id)">Set Default</button>
+            }
+            <button class="del-btn" (click)="deleteAddress(addr.id)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <p class="addr-name">{{ addr.fullName }} · {{ addr.phone }}</p>
+        <p class="addr-text">{{ addr.address }}, {{ addr.city }}, {{ addr.province }} {{ addr.zip }}</p>
+      </div>
+    }
+
+  </div>
+</ion-content>
