@@ -2,72 +2,125 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, AlertController } from '@ionic/angular/standalone';
+import {
+  IonContent, IonHeader, IonToolbar, IonButtons,
+  IonButton, IonIcon, AlertController
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, addOutline, trashOutline, cardOutline, cashOutline, phonePortraitOutline } from 'ionicons/icons';
-
-interface PaymentMethod {
-  id: number;
-  type: 'card' | 'gcash' | 'cod';
-  label: string;
-  detail: string;
-  isDefault: boolean;
-}
+import { arrowBackOutline, addOutline, trashOutline,
+         cardOutline, cashOutline, phonePortraitOutline } from 'ionicons/icons';
+import { AddressPaymentService } from '../services/address.service';
 
 @Component({
   selector: 'app-payment-methods',
   templateUrl: './payment-methods.page.html',
   styleUrls: ['./payment-methods.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonContent, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon]
+  imports: [CommonModule, FormsModule, IonContent, IonHeader,
+            IonToolbar, IonButtons, IonButton, IonIcon]
 })
 export class PaymentMethodsPage {
-  methods: PaymentMethod[] = [
-    { id: 1, type: 'cod',   label: 'Cash on Delivery', detail: 'Pay when your order arrives', isDefault: true },
-  ];
 
-  showForm = false;
-  nextId   = 2;
-  newType: 'card' | 'gcash' = 'card';
-  cardNumber  = '';
+  showForm    = false;
+  newType     = 'card';
   cardName    = '';
+  cardNumber  = '';
+  cardExpiry  = '';
+  cardCvv     = '';
   gcashNumber = '';
+  gcashName   = '';
+  errorMsg    = '';
 
-  constructor(public router: Router, private alertCtrl: AlertController) {
-    addIcons({ arrowBackOutline, addOutline, trashOutline, cardOutline, cashOutline, phonePortraitOutline });
+  constructor(
+    public  router:    Router,
+    public  addrSvc:   AddressPaymentService,
+    private alertCtrl: AlertController
+  ) {
+    addIcons({ arrowBackOutline, addOutline, trashOutline,
+               cardOutline, cashOutline, phonePortraitOutline });
   }
 
-  getIcon(type: string) {
+  getIcon(type: string): string {
     if (type === 'card')  return 'card-outline';
     if (type === 'gcash') return 'phone-portrait-outline';
     return 'cash-outline';
   }
 
-  saveMethod() {
+  formatCard(event: Event): void {
+    const el  = event.target as HTMLInputElement;
+    const raw = el.value.replace(/\D/g, '').substring(0, 16);
+    const fmt = raw.match(/.{1,4}/g)?.join(' ') ?? raw;
+    this.cardNumber = fmt;
+    el.value        = fmt;
+  }
+
+  formatExpiry(event: Event): void {
+    const el  = event.target as HTMLInputElement;
+    const raw = el.value.replace(/\D/g, '').substring(0, 4);
+    const fmt = raw.length > 2
+      ? raw.substring(0, 2) + '/' + raw.substring(2)
+      : raw;
+    this.cardExpiry = fmt;
+    el.value        = fmt;
+  }
+
+  saveMethod(): void {
+    this.errorMsg = '';
+
     if (this.newType === 'card') {
-      if (!this.cardNumber || !this.cardName) return;
-      const masked = '**** **** **** ' + this.cardNumber.slice(-4);
-      this.methods.push({ id: this.nextId++, type: 'card', label: this.cardName, detail: masked, isDefault: false });
+      if (!this.cardName.trim()) {
+        this.errorMsg = 'Please enter the cardholder name.'; return;
+      }
+      const digits = this.cardNumber.replace(/\s/g, '');
+      if (digits.length < 13) {
+        this.errorMsg = 'Please enter a valid card number.'; return;
+      }
+      if (this.cardExpiry.length < 5) {
+        this.errorMsg = 'Please enter expiry date (MM/YY).'; return;
+      }
+      if (this.cardCvv.length < 3) {
+        this.errorMsg = 'Please enter a valid CVV.'; return;
+      }
+
+      this.addrSvc.addPayment({
+        type:   'card',
+        label:  this.cardName.trim(),
+        detail: `**** **** **** ${digits.slice(-4)} · Exp ${this.cardExpiry}`,
+      });
+
     } else {
-      if (!this.gcashNumber) return;
-      this.methods.push({ id: this.nextId++, type: 'gcash', label: 'GCash', detail: this.gcashNumber, isDefault: false });
+      if (!this.gcashNumber.trim()) {
+        this.errorMsg = 'Please enter your GCash number.'; return;
+      }
+      if (!this.gcashName.trim()) {
+        this.errorMsg = 'Please enter your GCash account name.'; return;
+      }
+
+      this.addrSvc.addPayment({
+        type:   'gcash',
+        label:  `GCash — ${this.gcashName.trim()}`,
+        detail: this.gcashNumber.trim(),
+      });
     }
-    this.cardNumber = ''; this.cardName = ''; this.gcashNumber = '';
-    this.showForm = false;
+
+    this.cardName    = '';
+    this.cardNumber  = '';
+    this.cardExpiry  = '';
+    this.cardCvv     = '';
+    this.gcashNumber = '';
+    this.gcashName   = '';
+    this.errorMsg    = '';
+    this.showForm    = false;
   }
 
-  setDefault(id: number) {
-    this.methods = this.methods.map(m => ({ ...m, isDefault: m.id === id }));
-  }
-
-  async deleteMethod(id: number) {
+  async deleteMethod(id: number): Promise<void> {
     const alert = await this.alertCtrl.create({
-      header: 'Remove Payment Method',
-      message: 'Are you sure you want to remove this payment method?',
+      header: 'Remove', message: 'Remove this payment method?',
       cssClass: 'pink-alert',
       buttons: [
         { text: 'Cancel', role: 'cancel', cssClass: 'alert-cancel-btn' },
-        { text: 'Remove', cssClass: 'alert-logout-btn', handler: () => { this.methods = this.methods.filter(m => m.id !== id); } }
+        { text: 'Remove', cssClass: 'alert-logout-btn',
+          handler: () => this.addrSvc.deletePayment(id) }
       ]
     });
     await alert.present();

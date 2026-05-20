@@ -5,17 +5,38 @@ ion-content { --background: #fff5f9; }
 .profile-hero {
   background: linear-gradient(135deg, #e91e8c, #c44dff);
   border-radius: 0 0 30px 30px; padding: 20px 20px 28px; text-align: center; margin: 0 -20px 24px;
-  .avatar-wrap { position: relative; display: inline-block; margin-bottom: 12px;
-   .avatar-img {
-  width: 76px;
-  height: 76px;
+
+  .avatar-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 3px solid rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.2);
   object-fit: cover;
+  display: block;
 }
-    .avatar-edit { position: absolute; bottom: 0; right: 0; font-size: 0.75rem; background: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
-  }
+
+.avatar-edit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
   .p-name { font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0 0 4px; }
   .p-email { font-size: 0.8rem; color: rgba(255,255,255,0.75); margin: 0 0 20px; }
   .stats-row { display: flex; justify-content: center; background: rgba(255,255,255,0.18); border-radius: 16px; padding: 14px 0;

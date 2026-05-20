@@ -27,27 +27,27 @@
 <ion-content [fullscreen]="true">
   <div class="detail-wrapper">
 
-    <!-- Image Gallery -->
-    <div class="gallery">
-      <!-- 📸 MAIN IMAGE: comes from product.images[selectedImg] — set in shop.service.ts -->
-      <img class="main-img" [src]="product.images[selectedImg]" [alt]="product.title" />
+    <!-- Single product image — no gallery -->
+    <div class="hero-img-wrap">
+      <img [src]="product.img" [alt]="product.title" class="hero-img" />
       @if (!product.inStock) {
         <div class="oos-ribbon">Out of Stock</div>
       }
-      <div class="thumb-row">
-        @for (img of product.images; track $index) {
-          <!-- 📸 THUMBNAILS: also from product.images array in shop.service.ts -->
-          <img class="thumb"
-               [class.active]="selectedImg === $index"
-               [src]="img"
-               (click)="selectedImg = $index" />
-        }
-      </div>
+      @if (product.badge) {
+        <span class="hero-badge">{{ product.badge }}</span>
+      }
     </div>
 
-    <!-- Info Sheet -->
+    <!-- Info sheet -->
     <div class="info-sheet">
-      <span class="d-type">{{ product.type }}</span>
+
+      <div class="type-row">
+        <span class="d-type">{{ product.type }}</span>
+        @if (product.discount) {
+          <span class="d-disc">{{ product.discount }}</span>
+        }
+      </div>
+
       <h1 class="d-title">{{ product.title }}</h1>
 
       <div class="d-rating">
@@ -64,43 +64,76 @@
         @if (product.oldPrice) {
           <span class="d-old">${{ product.oldPrice }}</span>
         }
-        @if (product.discount) {
-          <span class="d-disc">{{ product.discount }}</span>
-        }
       </div>
 
-      <p class="d-desc">{{ product.description }}</p>
-
-      <!-- Sizes -->
-      <h3 class="opt-label">Select Size</h3>
-      <div class="size-row">
-        @for (size of product.sizes; track size) {
-          <button class="size-btn"
-                  [class.active]="selectedSize === size"
-                  (click)="selectedSize = size">
-            {{ size }}
-          </button>
-        }
+      <!-- Description -->
+      <div class="detail-section">
+        <h3 class="section-title">Description</h3>
+        <p class="d-desc">{{ product.description }}</p>
       </div>
 
-      <!-- Colors -->
-      <h3 class="opt-label">Select Color</h3>
-      <div class="color-row">
-        @for (color of product.colors; track color) {
-          <button class="color-dot"
-                  [style.background]="color"
-                  [class.active]="selectedColor === color"
-                  (click)="selectedColor = color">
-          </button>
-        }
+      <!-- Product specs -->
+      <div class="detail-section">
+        <h3 class="section-title">Product Details</h3>
+        <div class="specs-grid">
+          <div class="spec-item">
+            <span class="spec-label">Category</span>
+            <span class="spec-value">{{ product.type }}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Rating</span>
+            <span class="spec-value">⭐ {{ product.rating }} / 5</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Reviews</span>
+            <span class="spec-value">{{ product.reviews }} customers</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Availability</span>
+            <span class="spec-value"
+                  [style.color]="product.inStock ? '#1a9e5c' : '#e91e8c'">
+              {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+            </span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Price</span>
+            <span class="spec-value" style="color:#e91e8c; font-weight:800;">
+              ${{ product.price }}
+            </span>
+          </div>
+          @if (product.oldPrice) {
+            <div class="spec-item">
+              <span class="spec-label">Original Price</span>
+              <span class="spec-value" style="text-decoration:line-through; color:#ccc;">
+                ${{ product.oldPrice }}
+              </span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Size selection -->
+      <div class="detail-section">
+        <h3 class="section-title">Select Size</h3>
+        <div class="size-row">
+          @for (size of product.sizes; track size) {
+            <button class="size-btn"
+                    [class.active]="selectedSize === size"
+                    (click)="selectedSize = size">
+              {{ size }}
+            </button>
+          }
+        </div>
       </div>
 
       <!-- Stock warning -->
       @if (!product.inStock) {
-        <div class="oos-warning">⚠️ This item is currently out of stock</div>
+        <div class="oos-warning">
+          ⚠️ This item is currently out of stock
+        </div>
       }
 
-      <!-- CTA Buttons -->
+      <!-- CTA buttons -->
       <div class="cta-row">
         <button class="btn-cart"
                 [disabled]="!product.inStock"
@@ -108,8 +141,6 @@
           <ion-icon name="cart-outline"></ion-icon>
           {{ added ? '✓ Added!' : 'Add to Cart' }}
         </button>
-
-        <!-- BUY NOW — navigates to checkout with this single item -->
         <button class="btn-buy"
                 [disabled]="!product.inStock"
                 (click)="buyNow()">

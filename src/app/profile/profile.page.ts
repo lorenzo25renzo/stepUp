@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -12,6 +12,7 @@ import { heartOutline, bagOutline, locationOutline, cardOutline,
 import { ShopService } from '../services/shop';
 import { AuthService } from '../services/auth.service';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -20,7 +21,8 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, IonContent, IonHeader, IonToolbar, IonIcon]
 })
 export class ProfilePage {
-
+  @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
+  profilePhoto = '';
   menuItems = [
     { icon: 'heart-outline',       label: 'My Wishlist',     sub: 'Saved items',         route: '/wishlist'         },
     { icon: 'bag-outline',         label: 'My Orders',       sub: 'Track your orders',   route: '/orders'           },
@@ -45,6 +47,22 @@ export class ProfilePage {
     const name = this.auth.currentUser()?.fullName ?? '';
     return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   }
+
+  pickPhoto(): void {
+  this.photoInput.nativeElement.click();
+}
+
+onPhotoSelected(event: Event): void {
+  const input  = event.target as HTMLInputElement;
+  const file   = input.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    this.profilePhoto = e.target?.result as string;
+  };
+  reader.readAsDataURL(file);
+}
 
   navigate(route: string) {
     this.router.navigate([route]);

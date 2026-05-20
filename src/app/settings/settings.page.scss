@@ -1,8 +1,12 @@
 ion-content { --background: #fff5f9; }
 .page-wrapper { padding: 8px 20px 100px; }
 
-.settings-section { margin-bottom: 24px;
-  .section-label { font-size: 0.72rem; font-weight: 700; color: #d4a0c0; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 10px 4px; }
+.settings-section {
+  margin-bottom: 24px;
+  .section-label {
+    font-size: 0.72rem; font-weight: 700; color: #d4a0c0;
+    text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 10px 4px;
+  }
 }
 
 .setting-row {
@@ -10,20 +14,23 @@ ion-content { --background: #fff5f9; }
   display: flex; align-items: center; gap: 14px;
   border: 1px solid #fde0ef; margin-bottom: 10px;
 
-  .setting-icon-wrap { width: 38px; height: 38px; border-radius: 11px; background: #fde8f3; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  .setting-icon-wrap {
+    width: 38px; height: 38px; border-radius: 11px;
+    background: #fde8f3; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
     ion-icon { font-size: 1.05rem; color: #e91e8c; }
   }
-  .setting-text { flex: 1;
+
+  .setting-text {
+    flex: 1;
     .s-title { display: block; font-size: 0.88rem; font-weight: 700; color: #2d1b2e; }
-    .s-sub { font-size: 0.74rem; color: #d4a0c0; }
+    .s-sub   { font-size: 0.74rem; color: #d4a0c0; }
   }
-  &.arrow-row { cursor: pointer; }
-  .arrow-icon { color: #f5c6df; font-size: 0.9rem; }
 }
 
 .pink-toggle {
-  --track-background: #f5c6df;
+  --track-background:         #f5c6df;
   --track-background-checked: #e91e8c;
-  --handle-background: #fff;
+  --handle-background:         #fff;
   --handle-background-checked: #fff;
 }

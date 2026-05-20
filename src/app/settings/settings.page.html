@@ -20,19 +20,8 @@
           <ion-icon name="notifications-outline"></ion-icon>
         </div>
         <div class="setting-text">
-          <span class="s-title">Push Notifications</span>
-          <span class="s-sub">Receive app alerts</span>
-        </div>
-        <ion-toggle [(ngModel)]="notifications" class="pink-toggle"></ion-toggle>
-      </div>
-
-      <div class="setting-row">
-        <div class="setting-icon-wrap">
-          <ion-icon name="notifications-outline"></ion-icon>
-        </div>
-        <div class="setting-text">
           <span class="s-title">Order Updates</span>
-          <span class="s-sub">Shipping & delivery alerts</span>
+          <span class="s-sub">Get notified on order status</span>
         </div>
         <ion-toggle [(ngModel)]="orderUpdates" class="pink-toggle"></ion-toggle>
       </div>
@@ -42,51 +31,34 @@
           <ion-icon name="notifications-outline"></ion-icon>
         </div>
         <div class="setting-text">
-          <span class="s-title">Promo Emails</span>
-          <span class="s-sub">Sales and new arrivals</span>
+          <span class="s-title">Promotions & Sales</span>
+          <span class="s-sub">New arrivals and discounts</span>
         </div>
-        <ion-toggle [(ngModel)]="promoEmails" class="pink-toggle"></ion-toggle>
+        <ion-toggle [(ngModel)]="promoAlerts" class="pink-toggle"></ion-toggle>
       </div>
     </div>
 
     <div class="settings-section">
-      <p class="section-label">Appearance</p>
+      <p class="section-label">About</p>
 
       <div class="setting-row">
         <div class="setting-icon-wrap">
-          <ion-icon name="moon-outline"></ion-icon>
-        </div>
-        <div class="setting-text">
-          <span class="s-title">Dark Mode</span>
-          <span class="s-sub">Coming soon</span>
-        </div>
-        <ion-toggle [(ngModel)]="darkMode" [disabled]="true" class="pink-toggle"></ion-toggle>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <p class="section-label">Account</p>
-
-      <div class="setting-row arrow-row">
-        <div class="setting-icon-wrap">
-          <ion-icon name="lock-closed-outline"></ion-icon>
-        </div>
-        <div class="setting-text">
-          <span class="s-title">Change Password</span>
-          <span class="s-sub">Update your password</span>
-        </div>
-        <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
-      </div>
-
-      <div class="setting-row arrow-row">
-        <div class="setting-icon-wrap">
-          <ion-icon name="shield-outline"></ion-icon>
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
         </div>
         <div class="setting-text">
           <span class="s-title">Privacy Policy</span>
-          <span class="s-sub">How we use your data</span>
+          <span class="s-sub">How we handle your data</span>
         </div>
-        <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-icon-wrap">
+          <ion-icon name="information-circle-outline"></ion-icon>
+        </div>
+        <div class="setting-text">
+          <span class="s-title">App Version</span>
+          <span class="s-sub">v1.0.0</span>
+        </div>
       </div>
     </div>
 

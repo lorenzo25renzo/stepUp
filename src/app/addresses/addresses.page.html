@@ -7,88 +7,200 @@
     </ion-buttons>
     <div class="toolbar-title">Addresses 📍</div>
     <ion-buttons slot="end">
-      <ion-button (click)="showForm = !showForm">
+      <ion-button (click)="showForm = !showForm; resetForm()">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" (click)="closeAll()">
   <div class="page-wrapper">
 
     @if (showForm) {
-      <div class="form-card">
+      <div class="form-card" (click)="$event.stopPropagation()">
         <h3 class="form-title">New Address</h3>
 
         <div class="field-group">
-          <label>Label (e.g. Home, Work)</label>
-          <input [(ngModel)]="newAddress.label" placeholder="Home" />
-        </div>
-        <div class="field-group">
-          <label>Full Name</label>
-          <input [(ngModel)]="newAddress.fullName" placeholder="Enter full name" />
-        </div>
-        <div class="field-group">
-          <label>Phone</label>
-          <input [(ngModel)]="newAddress.phone" type="tel" placeholder="09XX XXX XXXX" />
-        </div>
-        <div class="field-group">
-          <label>Street Address</label>
-          <input [(ngModel)]="newAddress.address" placeholder="House No., Street, Barangay" />
-        </div>
-        <div class="form-row">
-          <div class="field-group">
-            <label>City</label>
-            <input [(ngModel)]="newAddress.city" placeholder="City" />
-          </div>
-          <div class="field-group">
-            <label>ZIP</label>
-            <input [(ngModel)]="newAddress.zip" type="number" placeholder="0000" />
+          <label>Label</label>
+          <div class="chip-row">
+            @for (lbl of ['Home','Work','Other']; track lbl) {
+              <button class="chip"
+                      [class.active]="form.label === lbl"
+                      (click)="form.label = lbl">
+                {{ lbl }}
+              </button>
+            }
           </div>
         </div>
+
+        <div class="field-group">
+          <label>Full Name *</label>
+          <input [(ngModel)]="form.fullName"
+                 placeholder="Enter full name" />
+        </div>
+
+        <div class="field-group">
+          <label>Phone Number</label>
+          <input [(ngModel)]="form.phone"
+                 type="tel"
+                 placeholder="09XX XXX XXXX" />
+        </div>
+
+        <!-- Region -->
+        <div class="field-group">
+          <label>Region</label>
+          <div class="dd-wrap">
+            <button class="dd-trigger"
+                    (click)="toggleRegion(); $event.stopPropagation()">
+              <span class="dd-val">
+                {{ form.region || 'Select Region' }}
+              </span>
+              <span class="dd-arrow">{{ regionOpen ? '▲' : '▼' }}</span>
+            </button>
+            @if (regionOpen) {
+              <div class="dd-list" (click)="$event.stopPropagation()">
+                @if (locSvc.loading()) {
+                  <p class="dd-loading">Loading...</p>
+                }
+                @for (r of locSvc.regions(); track r.code) {
+                  <button class="dd-item"
+                          [class.active]="form.region === r.name"
+                          (click)="selectRegion(r.code, r.name)">
+                    {{ r.name }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Province -->
         <div class="field-group">
           <label>Province</label>
-          <input [(ngModel)]="newAddress.province" placeholder="Province" />
+          <div class="dd-wrap">
+            <button class="dd-trigger"
+                    [disabled]="!selectedRegionCode"
+                    (click)="toggleProvince(); $event.stopPropagation()">
+              <span class="dd-val">
+                {{ form.province || 'Select Province' }}
+              </span>
+              <span class="dd-arrow">{{ provinceOpen ? '▲' : '▼' }}</span>
+            </button>
+            @if (provinceOpen) {
+              <div class="dd-list" (click)="$event.stopPropagation()">
+                @if (locSvc.loading()) {
+                  <p class="dd-loading">Loading...</p>
+                }
+                @for (p of locSvc.provinces(); track p.code) {
+                  <button class="dd-item"
+                          [class.active]="form.province === p.name"
+                          (click)="selectProvince(p.code, p.name)">
+                    {{ p.name }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- City -->
+        <div class="field-group">
+          <label>City / Municipality</label>
+          <div class="dd-wrap">
+            <button class="dd-trigger"
+                    [disabled]="!selectedProvinceCode"
+                    (click)="toggleCity(); $event.stopPropagation()">
+              <span class="dd-val">
+                {{ form.city || 'Select City / Municipality' }}
+              </span>
+              <span class="dd-arrow">{{ cityOpen ? '▲' : '▼' }}</span>
+            </button>
+            @if (cityOpen) {
+              <div class="dd-list" (click)="$event.stopPropagation()">
+                @if (locSvc.loading()) {
+                  <p class="dd-loading">Loading...</p>
+                }
+                @for (c of locSvc.cities(); track c.code) {
+                  <button class="dd-item"
+                          [class.active]="form.city === c.name"
+                          (click)="selectCity(c.name)">
+                    {{ c.name }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Barangay</label>
+          <input [(ngModel)]="form.barangay"
+                 placeholder="Enter barangay" />
+        </div>
+
+        <div class="field-group">
+          <label>Street / House No. *</label>
+          <input [(ngModel)]="form.street"
+                 placeholder="House No., Street Name" />
+        </div>
+
+        <div class="field-group">
+          <label>ZIP Code</label>
+          <input [(ngModel)]="form.zip"
+                 type="tel"
+                 placeholder="0000" />
         </div>
 
         <div class="form-btns">
-          <button class="btn-cancel" (click)="showForm = false">Cancel</button>
-          <button class="btn-save" (click)="saveAddress()">Save Address</button>
+          <button class="btn-cancel"
+                  (click)="showForm = false; resetForm()">
+            Cancel
+          </button>
+          <button class="btn-save" (click)="saveAddress()">
+            Save Address
+          </button>
         </div>
       </div>
     }
 
-    @if (addresses.length === 0 && !showForm) {
+    @if (addrSvc.addresses().length === 0 && !showForm) {
       <div class="empty-state">
         <div class="empty-icon">📍</div>
         <h2>No addresses saved</h2>
-        <p>Add a delivery address to make checkout faster.</p>
-        <button class="browse-btn" (click)="showForm = true">Add Address</button>
+        <p>Tap + to add a delivery address.</p>
       </div>
     }
 
-    @for (addr of addresses; track addr.id) {
-      <div class="address-card" [class.default]="addr.isDefault">
-        <div class="addr-header">
-          <div class="addr-label-wrap">
+    @for (addr of addrSvc.addresses(); track addr.id) {
+      <div class="addr-card" [class.default]="addr.isDefault">
+        <div class="addr-top">
+          <div class="addr-label-row">
             <ion-icon name="location-outline"></ion-icon>
             <span class="addr-label">{{ addr.label }}</span>
             @if (addr.isDefault) {
-              <span class="default-badge">Default</span>
+              <span class="badge">Default</span>
             }
           </div>
-          <div class="addr-actions">
+          <div class="addr-btns">
             @if (!addr.isDefault) {
-              <button class="set-default-btn" (click)="setDefault(addr.id)">Set Default</button>
+              <button class="set-def-btn"
+                      (click)="addrSvc.setDefaultAddress(addr.id)">
+                Set Default
+              </button>
             }
-            <button class="del-btn" (click)="deleteAddress(addr.id)">
+            <button class="del-btn"
+                    (click)="deleteAddress(addr.id)">
               <ion-icon name="trash-outline"></ion-icon>
             </button>
           </div>
         </div>
         <p class="addr-name">{{ addr.fullName }} · {{ addr.phone }}</p>
-        <p class="addr-text">{{ addr.address }}, {{ addr.city }}, {{ addr.province }} {{ addr.zip }}</p>
+        <p class="addr-text">
+          {{ addr.street }}, {{ addr.barangay }},
+          {{ addr.city }}, {{ addr.province }},
+          {{ addr.region }} {{ addr.zip }}
+        </p>
       </div>
     }
 

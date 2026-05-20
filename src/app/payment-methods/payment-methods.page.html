@@ -7,7 +7,7 @@
     </ion-buttons>
     <div class="toolbar-title">Payment Methods 💳</div>
     <ion-buttons slot="end">
-      <ion-button (click)="showForm = !showForm">
+      <ion-button (click)="showForm = !showForm; errorMsg = ''">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -21,11 +21,17 @@
       <div class="form-card">
         <h3 class="form-title">Add Payment Method</h3>
 
+        @if (errorMsg) {
+          <div class="error-box">{{ errorMsg }}</div>
+        }
+
         <div class="type-row">
-          <button class="type-btn" [class.active]="newType === 'card'" (click)="newType = 'card'">
+          <button class="type-btn" [class.active]="newType === 'card'"
+                  (click)="newType = 'card'; errorMsg = ''">
             <ion-icon name="card-outline"></ion-icon> Card
           </button>
-          <button class="type-btn" [class.active]="newType === 'gcash'" (click)="newType = 'gcash'">
+          <button class="type-btn" [class.active]="newType === 'gcash'"
+                  (click)="newType = 'gcash'; errorMsg = ''">
             <ion-icon name="phone-portrait-outline"></ion-icon> GCash
           </button>
         </div>
@@ -33,29 +39,62 @@
         @if (newType === 'card') {
           <div class="field-group">
             <label>Cardholder Name</label>
-            <input [(ngModel)]="cardName" placeholder="Name on card" />
+            <input [(ngModel)]="cardName"
+                   type="text"
+                   placeholder="e.g. Precious Nita Lipon" />
           </div>
           <div class="field-group">
             <label>Card Number</label>
-            <input [(ngModel)]="cardNumber" type="number" placeholder="XXXX XXXX XXXX XXXX" />
+            <input [(ngModel)]="cardNumber"
+                   type="text"
+                   maxlength="19"
+                   placeholder="XXXX XXXX XXXX XXXX"
+                   (input)="formatCard($event)" />
+          </div>
+          <div class="form-row">
+            <div class="field-group">
+              <label>Expiry Date</label>
+              <input [(ngModel)]="cardExpiry"
+                     type="text"
+                     maxlength="5"
+                     placeholder="MM/YY"
+                     (input)="formatExpiry($event)" />
+            </div>
+            <div class="field-group">
+              <label>CVV</label>
+              <input [(ngModel)]="cardCvv"
+                     type="password"
+                     maxlength="4"
+                     placeholder="•••" />
+            </div>
           </div>
         }
 
         @if (newType === 'gcash') {
           <div class="field-group">
             <label>GCash Number</label>
-            <input [(ngModel)]="gcashNumber" type="tel" placeholder="09XX XXX XXXX" />
+            <input [(ngModel)]="gcashNumber"
+                   type="tel"
+                   placeholder="09XX XXX XXXX" />
+          </div>
+          <div class="field-group">
+            <label>Account Name</label>
+            <input [(ngModel)]="gcashName"
+                   type="text"
+                   placeholder="Your GCash account name" />
           </div>
         }
 
         <div class="form-btns">
-          <button class="btn-cancel" (click)="showForm = false">Cancel</button>
+          <button class="btn-cancel" (click)="showForm = false; errorMsg = ''">
+            Cancel
+          </button>
           <button class="btn-save" (click)="saveMethod()">Save</button>
         </div>
       </div>
     }
 
-    @for (method of methods; track method.id) {
+    @for (method of addrSvc.payments(); track method.id) {
       <div class="method-card" [class.default]="method.isDefault">
         <div class="method-icon-wrap">
           <ion-icon [name]="getIcon(method.type)"></ion-icon>
@@ -69,7 +108,10 @@
         </div>
         <div class="method-actions">
           @if (!method.isDefault) {
-            <button class="set-default-btn" (click)="setDefault(method.id)">Set Default</button>
+            <button class="set-default-btn"
+                    (click)="addrSvc.setDefaultPayment(method.id)">
+              Set Default
+            </button>
           }
           @if (method.type !== 'cod') {
             <button class="del-btn" (click)="deleteMethod(method.id)">

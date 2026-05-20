@@ -7,18 +7,33 @@
 <ion-content [fullscreen]="true">
   <div class="page-wrapper">
 
+    <!-- Profile Hero Container -->
     <div class="profile-hero">
-      <div class="avatar-wrap">
-  <img
-    class="avatar-img"
-    [src]="auth.getAvatarUrl(auth.currentUser()?.fullName ?? 'Guest')"
-    [alt]="auth.currentUser()?.fullName" />
-  <div class="avatar-edit">✏️</div>
-</div>
+      
+      <!-- Fixed: Removed extra '<' and matched closing boundaries -->
+      <div class="avatar-wrap" (click)="pickPhoto()">
+        @if (profilePhoto) {
+          <img class="avatar-img" [src]="profilePhoto" alt="Profile photo" />
+        } @else {
+          <img
+            class="avatar-img"
+            [src]="auth.getAvatarUrl(auth.currentUser()?.fullName ?? 'Guest')"
+            [alt]="auth.currentUser()?.fullName" />
+        }
+        <div class="avatar-edit">📷</div>
+        
+        <!-- Hidden file input -->
+        <input #photoInput type="file" accept="image/*"
+               style="display:none"
+               (change)="onPhotoSelected($event)" />
+      </div> <!-- Closes .avatar-wrap -->
+
+      <!-- These items now sit correctly inside the hero block layout -->
       <h2 class="p-name">{{ auth.currentUser()?.fullName ?? 'Guest' }}</h2>
       <p class="p-email">{{ auth.currentUser()?.email ?? '' }}</p>
       <p class="p-phone">{{ auth.currentUser()?.phone ?? '' }}</p>
 
+      <!-- Stats Grid Display -->
       <div class="stats-row">
         <div class="stat">
           <span class="s-val">{{ shop.cart().length }}</span>
@@ -35,8 +50,10 @@
           <span class="s-lbl">Orders</span>
         </div>
       </div>
-    </div>
 
+    </div> <!-- Closes .profile-hero correctly at the end of the section -->
+
+    <!-- Navigation Menu Settings List -->
     <div class="menu-list">
       @for (item of menuItems; track item.label) {
         <div class="menu-item" (click)="navigate(item.route)">
@@ -52,6 +69,7 @@
       }
     </div>
 
+    <!-- Log Out Interface Button -->
     <button class="logout-btn" (click)="logout()">
       <ion-icon name="log-out-outline"></ion-icon>
       Log Out
