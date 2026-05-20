@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+
+  <ion-toolbar>
+
+    <div class="toolbar-container">
+
+      <!-- Back Button -->
+      <div
+        class="back-btn"
+        (click)="goBack()">
+
+        <ion-icon name="arrow-back-outline"></ion-icon>
+
+      </div>
+
+      <!-- Title -->
+      <div class="toolbar-title">
+        Notifications
+      </div>
+
+    </div>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="notif-wrapper">
+
+    @for (item of notifications; track item.title) {
+
+      <div class="notif-card">
+
+        <div class="notif-top">
+
+          <div class="notif-icon">
+
+            <ion-icon name="notifications-outline"></ion-icon>
+
+          </div>
+
+          <div class="notif-content">
+
+            <h3>{{ item.title }}</h3>
+
+            <p>{{ item.message }}</p>
+
+            <div class="notif-time">
+
+              <ion-icon name="time-outline"></ion-icon>
+
+              <span>{{ item.time }}</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</ion-content>

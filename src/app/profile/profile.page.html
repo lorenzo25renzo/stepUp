@@ -1,79 +1,179 @@
 <ion-header class="ion-no-border">
+
   <ion-toolbar>
-    <div class="toolbar-title">Profile</div>
+
+    <div class="toolbar-container">
+
+      <div class="toolbar-title">
+        Profile
+      </div>
+
+      <!-- Notification Button -->
+      <div
+        class="notif-btn"
+        (click)="openNotifications()">
+
+        <ion-icon name="notifications-outline"></ion-icon>
+
+      </div>
+
+    </div>
+
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <div class="page-wrapper">
 
-    <!-- Profile Hero Container -->
+    <!-- Profile Hero -->
     <div class="profile-hero">
-      
-      <!-- Fixed: Removed extra '<' and matched closing boundaries -->
-      <div class="avatar-wrap" (click)="pickPhoto()">
+
+      <!-- Avatar -->
+      <div
+        class="avatar-wrap"
+        (click)="pickPhoto()">
+
         @if (profilePhoto) {
-          <img class="avatar-img" [src]="profilePhoto" alt="Profile photo" />
+
+          <img
+            class="avatar-img"
+            [src]="profilePhoto"
+            alt="Profile photo" />
+
         } @else {
+
           <img
             class="avatar-img"
             [src]="auth.getAvatarUrl(auth.currentUser()?.fullName ?? 'Guest')"
             [alt]="auth.currentUser()?.fullName" />
+
         }
-        <div class="avatar-edit">📷</div>
-        
-        <!-- Hidden file input -->
-        <input #photoInput type="file" accept="image/*"
-               style="display:none"
-               (change)="onPhotoSelected($event)" />
-      </div> <!-- Closes .avatar-wrap -->
 
-      <!-- These items now sit correctly inside the hero block layout -->
-      <h2 class="p-name">{{ auth.currentUser()?.fullName ?? 'Guest' }}</h2>
-      <p class="p-email">{{ auth.currentUser()?.email ?? '' }}</p>
-      <p class="p-phone">{{ auth.currentUser()?.phone ?? '' }}</p>
+        <div class="avatar-edit">
+          📷
+        </div>
 
-      <!-- Stats Grid Display -->
-      <div class="stats-row">
-        <div class="stat">
-          <span class="s-val">{{ shop.cart().length }}</span>
-          <span class="s-lbl">In Cart</span>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <span class="s-val">{{ shop.wishlistCount() }}</span>
-          <span class="s-lbl">Wishlist</span>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <span class="s-val">{{ shop.orders().length }}</span>
-          <span class="s-lbl">Orders</span>
-        </div>
+        <!-- Hidden File Input -->
+        <input
+          #photoInput
+          type="file"
+          accept="image/*"
+          style="display:none"
+          (change)="onPhotoSelected($event)" />
+
       </div>
 
-    </div> <!-- Closes .profile-hero correctly at the end of the section -->
+      <!-- User Info -->
+      <h2 class="p-name">
+        {{ auth.currentUser()?.fullName ?? 'Guest' }}
+      </h2>
 
-    <!-- Navigation Menu Settings List -->
-    <div class="menu-list">
-      @for (item of menuItems; track item.label) {
-        <div class="menu-item" (click)="navigate(item.route)">
-          <div class="menu-icon-wrap">
-            <ion-icon [name]="item.icon"></ion-icon>
-          </div>
-          <div class="menu-text">
-            <span class="m-label">{{ item.label }}</span>
-            <span class="m-sub">{{ item.sub }}</span>
-          </div>
-          <ion-icon name="chevron-forward-outline" class="m-arrow"></ion-icon>
+      <p class="p-email">
+        {{ auth.currentUser()?.email ?? '' }}
+      </p>
+
+      <p class="p-phone">
+        {{ auth.currentUser()?.phone ?? '' }}
+      </p>
+
+      <!-- Stats -->
+      <div class="stats-row">
+
+        <div class="stat">
+
+          <span class="s-val">
+            {{ shop.cart().length }}
+          </span>
+
+          <span class="s-lbl">
+            In Cart
+          </span>
+
         </div>
-      }
+
+        <div class="stat-div"></div>
+
+        <div class="stat">
+
+          <span class="s-val">
+            {{ shop.wishlistCount() }}
+          </span>
+
+          <span class="s-lbl">
+            Wishlist
+          </span>
+
+        </div>
+
+        <div class="stat-div"></div>
+
+        <div class="stat">
+
+          <span class="s-val">
+            {{ shop.orders().length }}
+          </span>
+
+          <span class="s-lbl">
+            Orders
+          </span>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Log Out Interface Button -->
-    <button class="logout-btn" (click)="logout()">
+    <!-- Menu -->
+    <div class="menu-list">
+
+      @for (item of menuItems; track item.label) {
+
+        <div
+          class="menu-item"
+          (click)="navigate(item.route)">
+
+          <div class="menu-icon-wrap">
+
+            <ion-icon [name]="item.icon"></ion-icon>
+
+          </div>
+
+          <div class="menu-text">
+
+            <span class="m-label">
+              {{ item.label }}
+            </span>
+
+            <span class="m-sub">
+              {{ item.sub }}
+            </span>
+
+          </div>
+
+          <ion-icon
+            name="chevron-forward-outline"
+            class="m-arrow">
+          </ion-icon>
+
+        </div>
+
+      }
+
+    </div>
+
+    <!-- Logout -->
+    <button
+      class="logout-btn"
+      (click)="logout()">
+
       <ion-icon name="log-out-outline"></ion-icon>
+
       Log Out
+
     </button>
 
   </div>
+
 </ion-content>

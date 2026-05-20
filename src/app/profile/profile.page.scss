@@ -1,12 +1,47 @@
-ion-content { --background: #fff5f9; }
-.page-wrapper { padding: 0 20px 100px; }
-.toolbar-title { font-size: 1rem; font-weight: 700; color: #2d1b2e; text-align: center; }
+ion-content {
+  --background: #fff5f9;
+}
 
+.page-wrapper {
+  padding: 0 20px 100px;
+}
+
+/* Toolbar */
+.toolbar-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.toolbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d1b2e;
+}
+
+.notif-btn {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 1.35rem;
+    color: #2d1b2e;
+  }
+}
+
+/* Profile Hero */
 .profile-hero {
   background: linear-gradient(135deg, #e91e8c, #c44dff);
-  border-radius: 0 0 30px 30px; padding: 20px 20px 28px; text-align: center; margin: 0 -20px 24px;
+  border-radius: 0 0 30px 30px;
+  padding: 20px 20px 28px;
+  text-align: center;
+  margin: 0 -20px 24px;
+}
 
-  .avatar-wrap {
+.avatar-wrap {
   position: relative;
   display: inline-block;
   margin-bottom: 12px;
@@ -17,8 +52,8 @@ ion-content { --background: #fff5f9; }
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.2);
   object-fit: cover;
   display: block;
 }
@@ -31,64 +66,27 @@ ion-content { --background: #fff5f9; }
   border-radius: 50%;
   width: 26px;
   height: 26px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 0.75rem;
+
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
-  .p-name { font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0 0 4px; }
-  .p-email { font-size: 0.8rem; color: rgba(255,255,255,0.75); margin: 0 0 20px; }
-  .stats-row { display: flex; justify-content: center; background: rgba(255,255,255,0.18); border-radius: 16px; padding: 14px 0;
-    .stat { flex: 1; text-align: center;
-      .s-val { display: block; font-size: 1.2rem; font-weight: 800; color: #fff; }
-      .s-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.75); }
-    }
-    .stat-div { width: 1px; background: rgba(255,255,255,0.25); }
-  }
+
+.p-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 4px;
 }
-.menu-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-.menu-item {
-  background: #fff; border-radius: 16px; padding: 14px 16px;
-  display: flex; align-items: center; gap: 14px; border: 1px solid #fde0ef; cursor: pointer;
-  .menu-icon-wrap { width: 40px; height: 40px; border-radius: 12px; background: #fde8f3; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    ion-icon { font-size: 1.1rem; color: #e91e8c; }
-  }
-  .menu-text { flex: 1;
-    .m-label { display: block; font-size: 0.9rem; font-weight: 700; color: #2d1b2e; }
-    .m-sub { font-size: 0.74rem; color: #d4a0c0; }
-  }
-  .m-arrow { color: #f5c6df; font-size: 0.9rem; }
-}
-.logout-btn { width: 100%; background: #fde8f3; border: none; border-radius: 14px; padding: 14px; color: #e91e8c; font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
 
-// ── Logout alert styling ──────────────────────────────────────
-:root {
-  .logout-alert {
-    --background: #fff;
-    --border-radius: 20px;
-
-    .alert-title {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #2d1b2e;
-    }
-
-    .alert-message {
-      font-size: 0.85rem;
-      color: #a07090;
-    }
-
-    .alert-cancel-btn {
-      color: #a07090 !important;
-      font-weight: 600;
-    }
-
-    .alert-logout-btn {
-      color: #e91e8c !important;
-      font-weight: 700;
-    }
-  }
+.p-email {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+  margin: 0 0 4px;
 }
 
 .p-phone {
@@ -97,9 +95,123 @@ ion-content { --background: #fff5f9; }
   margin: 0 0 16px;
 }
 
-// ── Alert styling ─────────────────────────────────────────────
+/* Stats */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  background: rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 14px 0;
+}
+
+.stat {
+  flex: 1;
+  text-align: center;
+}
+
+.s-val {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.s-lbl {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.stat-div {
+  width: 1px;
+  background: rgba(255,255,255,0.25);
+}
+
+/* Menu */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.menu-item {
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  border: 1px solid #fde0ef;
+
+  cursor: pointer;
+}
+
+.menu-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #fde8f3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 1.1rem;
+    color: #e91e8c;
+  }
+}
+
+.menu-text {
+  flex: 1;
+}
+
+.m-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2d1b2e;
+}
+
+.m-sub {
+  font-size: 0.74rem;
+  color: #d4a0c0;
+}
+
+.m-arrow {
+  color: #f5c6df;
+  font-size: 0.9rem;
+}
+
+/* Logout */
+.logout-btn {
+  width: 100%;
+  background: #fde8f3;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+
+  color: #e91e8c;
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  cursor: pointer;
+}
+
+/* Alert Styling */
 :root {
+
   .pink-alert {
+
     --background: #fff;
     --border-radius: 20px;
 
@@ -115,28 +227,16 @@ ion-content { --background: #fff5f9; }
       line-height: 1.5;
     }
 
-    .alert-input {
-      border: 1.5px solid #f5c6df !important;
-      border-radius: 12px !important;
-      padding: 10px 14px !important;
-      font-size: 0.88rem !important;
-      color: #2d1b2e !important;
-      margin-top: 8px;
-    }
-
     .alert-cancel-btn {
       color: #a07090 !important;
       font-weight: 600;
-    }
-
-    .alert-confirm-btn {
-      color: #e91e8c !important;
-      font-weight: 700;
     }
 
     .alert-logout-btn {
       color: #e91e8c !important;
       font-weight: 700;
     }
+
   }
+
 }
