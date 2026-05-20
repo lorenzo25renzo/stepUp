@@ -1,13 +1,13 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-  <div class="app-logo-wrap">
-    <img src="assets/logo.png" alt="StepUp" class="app-logo-img" />
-    <span class="app-logo-name">StepUp</span>
-  </div>
-</ion-buttons>
+      <div class="app-logo-wrap">
+        <img src="assets/logo.png" alt="StepUp" class="app-logo-img" />
+        <span class="app-logo-name">StepUp</span>
+      </div>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="router.navigate(['/notifications'])">
         <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="router.navigate(['/cart'])">
@@ -25,19 +25,16 @@
 <ion-content [fullscreen]="true">
   <div class="page-wrapper">
 
-    <!-- Headline -->
     <div class="headline">
       <p class="greeting">Hello, Precious Nita! 🌸</p>
       <h1>Discover<br><span class="accent">Your Style</span></h1>
     </div>
 
-    <!-- Search — no filter button -->
     <div class="search-wrapper" (click)="goToProducts()">
       <ion-icon name="search-outline" class="search-icon"></ion-icon>
       <span class="search-placeholder">Search for shoes...</span>
     </div>
 
-    <!-- Categories -->
     <div class="section-header">
       <h2>Categories</h2>
       <button class="see-all" (click)="goToProducts()">See All</button>
@@ -55,7 +52,6 @@
       }
     </div>
 
-    <!-- Banner -->
     <div class="featured-banner">
       <div class="banner-text">
         <span class="banner-tag">✨ New Arrival</span>
@@ -63,13 +59,11 @@
         <p>{{ shop.products.length }} products available</p>
         <button class="banner-btn" (click)="goToProducts()">Shop Now</button>
       </div>
-      <!-- 📸 BANNER IMAGE: replace src with 'assets/img/banner-shoe.png' -->
       <img class="banner-img"
            src="https://placehold.co/260x200/e91e8c/ffffff?text=👟"
            alt="banner shoe" />
     </div>
 
-    <!-- Featured — shows 4 items filtered by active category -->
     <div class="section-header">
       <h2>{{ activeCategory === 'All' ? 'Featured' : activeCategory }}</h2>
       <button class="see-all" (click)="goToProducts()">See All</button>
@@ -85,7 +79,6 @@
       @for (item of featured; track item.id) {
         <div class="product-card" (click)="goToDetail(item.id)">
           <div class="product-img-wrap">
-            <!-- 📸 PRODUCT IMAGE: set in shop.service.ts → products[n].img -->
             <img [src]="item.img" [alt]="item.title" class="product-img" />
             @if (item.badge) { <span class="img-badge">{{ item.badge }}</span> }
             <button class="wishlist-btn" (click)="toggleWish($event, item.id)">
