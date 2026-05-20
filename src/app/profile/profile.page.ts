@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   IonContent, IonHeader, IonToolbar, IonIcon,
-  AlertController
+  AlertController, ActionSheetController // <-- Add ActionSheetController here
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { heartOutline, bagOutline, locationOutline, cardOutline,
-         settingsOutline, helpCircleOutline, logOutOutline,
-         chevronForwardOutline } from 'ionicons/icons';
+import { 
+  heartOutline, bagOutline, locationOutline, cardOutline,
+  settingsOutline, helpCircleOutline, logOutOutline,
+  chevronForwardOutline, trashOutline, imageOutline // <-- Add these icons for the sheet
+} from 'ionicons/icons';
 import { ShopService } from '../services/shop';
 import { AuthService } from '../services/auth.service';
-
 
 @Component({
   selector: 'app-profile',
@@ -36,11 +37,14 @@ export class ProfilePage {
     public shop: ShopService,
     public auth: AuthService,
     public router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private actionSheetCtrl: ActionSheetController // <-- Inject the Controller
   ) {
-    addIcons({ heartOutline, bagOutline, locationOutline, cardOutline,
-               settingsOutline, helpCircleOutline, logOutOutline,
-               chevronForwardOutline });
+    addIcons({ 
+      heartOutline, bagOutline, locationOutline, cardOutline,
+      settingsOutline, helpCircleOutline, logOutOutline,
+      chevronForwardOutline, trashOutline, imageOutline // <-- Register new icons
+    });
   }
 
   get initials(): string {
@@ -48,21 +52,58 @@ export class ProfilePage {
     return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   }
 
-  pickPhoto(): void {
-  this.photoInput.nativeElement.click();
+  async pickPhoto(): Promise<void> {
+  if (!this.profilePhoto) {
+    this.photoInput.nativeElement.click();
+    return;
+  }
+
+  const actionSheet = await this.actionSheetCtrl.create({
+    header: 'Profile Photo',
+    mode: 'md', // <-- This forces the clean, simple Android/Material Design layout!
+    buttons: [
+      {
+        text: 'Upload New Photo',
+        icon: 'image-outline',
+        handler: () => {
+          this.photoInput.nativeElement.click();
+        }
+      },
+      {
+        text: 'Delete Photo',
+        role: 'destructive',
+        icon: 'trash-outline',
+        handler: () => {
+          this.deletePhoto();
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+    ]
+  });
+  await actionSheet.present();
 }
 
-onPhotoSelected(event: Event): void {
-  const input  = event.target as HTMLInputElement;
-  const file   = input.files?.[0];
-  if (!file) return;
+  // The core magic method: resets the image back to empty string
+  deletePhoto(): void {
+    this.profilePhoto = '';
+    // Clear the input value so selecting the same file again triggers (change)
+    this.photoInput.nativeElement.value = ''; 
+  }
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    this.profilePhoto = e.target?.result as string;
-  };
-  reader.readAsDataURL(file);
-}
+  onPhotoSelected(event: Event): void {
+    const input  = event.target as HTMLInputElement;
+    const file   = input.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.profilePhoto = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 
   navigate(route: string) {
     this.router.navigate([route]);
